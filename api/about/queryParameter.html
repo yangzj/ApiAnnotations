@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+
+				<div class="docs-wrapper container">
+
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+
+					<article>
+						<h1>@Query</h1>
+						<ul>
+							<li>
+								<a href="">ApiAnnotations框架内涵</a>
+							</li>
+							<li>
+								<a href="">学习ApiAnnotations框架</a>
+							</li>
+							<li>
+								<a href="">研发小组</a>
+							</li>
+						</ul>
+						<h2><a href="">简介</a></h2>
+						<P>
+							在interface上使用@Query，要同时与@ApiGroup一起使用，会自动为interface生成实现类，
+							并且对interface的method进行实现具体的业务逻辑。
+						</P>
+						<p>@Query与@ApiGroup同时使用，所以能够使用@ApiGroup自动生成的过滤器， method 参数构建，及参数空检验和正则表达式校验。</p>
+						<p>
+							此时 javadoc 和 method 的参数同样充当 servlet 的配置信息，也是作为一个http请求接口，与单独使用@ActionApi最大不同的是，@Query
+							自动为interface生成实现类，以下为一个请求入口：
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * @author yzhujue
+ * @description 用户查询类
+ * @id 106
+ */
+@Query
+@ApiGroup
+public interface UserQuery {
+
+	/**
+	 * 搜索用户信息列表
+	 * @id Q10601
+	 * @descriptions telephone/key
+	 * @filters open
+	 * @pattern *;list.id|registerTime|nickname|realname|telephone|
+	 * @queryType sqlPage
+	 * @query
+	 * 
+	 * 		&lt;pre&gt;
+	  #if(!$order) #set( $order= "registerTime") #end
+	  select * FROM User
+	  where lifeCycle='AVAILABLE'
+	  #if("$!telephone"!="") AND telephone = #safe($telephone)  #end
+	  #if("$!key"!="") AND realname like #safe("%$key%")  #end
+	  order by  $order desc
+	 *       &lt;/pre&gt;
+	 */
+	public List&lt;User&gt; queryUserInfo(String telephone, String key);
+}</code>
+</pre>
+						</p>
+						<h2><a href="">javadoc标识</a></h2>
+						<p>
+							@Query与@ApiGroup同时使用时，能够使用单独使用@ApiGroup时的所有javadoc标识。@Query作为标识数据查询类，所以多增加几个javadoc标识。
+							<a href="apiGroupParameter.html">查看更多javadoc标识</a>
+						</p>
+						<h4>&diams;  method javadoc 标识</h4>
+						<table>
+							<tr style="font-weight: bold;">
+								<td width="20%">javadoc属性</td>
+								<td width="80%">描述</td>
+							</tr>
+							<tr>
+								<td >@queryType</td>
+								<td>
+									数据查询方式支持<a href="#queryType_sql">sql语法</a>和<a href="#queryType_hql">hql语法</a>。（注：hql语法为hibernate自带语法）
+								</td>
+							</tr>
+							<tr>
+								<td>@query</td>
+								<td>
+									后面带sql语法，
+	<pre>
+	 * &lt;pre&gt;
+	 * select count(telephone) 
+	 * FROM tb_user
+	 * where lifeCycle='AVAILABLE'
+	 * &lt;/pre&gt;
+	</pre>
+									<blockquote>注：sql需要紧跟在<code>@query</code>后面，且sql需在<code>&lt;pre&gt;&lt;/pre&gt;</code>标签之中。</blockquote>
+								</td>
+							</tr>
+						</table>
+						
+						<h4 id="queryType_sql">&diams;  queryType参数详解之sql语法</h4>
+						<table>
+							<tr>
+								<td width="20%">@sqlGet</td>
+								<td width="80%">返回一个数据对象</td>
+							</tr>
+							<tr>
+								<td width="20%">@sqlList</td>
+								<td width="80%">返回一个数据列表</td>
+							</tr>
+							<tr>
+								<td width="20%">@sqlPage</td>
+								<td width="80%">返回一个数据列表带分页，数据结构：data{list, total}</td>
+							</tr>
+						</table>
+						<h4 id="queryType_hql">&diams;  queryType参数详解之hql语法</h4>
+						<table>
+							<tr>
+								<td width="20%">@hqlGet</td>
+								<td width="80%">返回一个数据对象</td>
+							</tr>
+							<tr>
+								<td width="20%">@hqlList</td>
+								<td width="80%">返回一个数据列表</td>
+							</tr>
+							<tr>
+								<td width="20%">@hqlPage</td>
+								<td width="80%">返回一个数据列表带分页，数据结构：data{list, total}</td>
+							</tr>
+						</table>
+					</article>
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

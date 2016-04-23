@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.golaravel.com/laravel/docs/5.1/localization/ -->
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<span class="overlay"></span>
+				<nav class="main">
+					<div class="container">
+						<a href="" class="brand">
+							ApiAnnotations
+						</a>
+						<ul class="main-nav">
+							<li class="nav-docs">
+								<a href="">环境部署</a>
+							</li>
+							<li class="nav-api">
+								<a href="" target="_blank">API</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+				<nav id="slide-menu" class="slide-menu scotch-panel-left" role="navigation" style="top: 0px; left: -70%; width: 70%; height: 100%; position: absolute; z-index: 888888; overflow: hidden; backface-visibility: hidden; display: block;">
+					<div class="slide-docs-nav">
+						<h2>文档目录</h2>
+						<ul>
+							<li>序言
+								<ul>
+									<li><a href="">简介</a>
+									</li>
+									<li><a href="">升级指南</a>
+									</li>
+									<li><a href="">贡献指南</a>
+									</li>
+									<li><a href="">API 文档</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+				</nav>
+
+				<div class="docs-wrapper container">
+
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+
+					<article>
+						<h1>@filters详解</h1>
+						<ul>
+							<li>
+								<a href="">简介</a>
+							</li>
+							<li>
+								<a href="">表达式</a>
+							</li>
+							<li>
+								<a href="">表达式解析</a>
+							</li>
+							<li>
+								<a href="">自定义filters</a>
+							</li>
+							<li>
+								<a href="">使用场景</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2><a href="">简介</a></h2>
+						<p>@filters只针对具体方法method，没有针对具体的类class进行过滤。与javadoc进行巧妙的结合，构建简洁的表达式。能够同时使用多个拦截器，比如：域名、ip、权限进行拦截。</p>
+						<p>
+							<code>@filters permission:admin|permission:salesman</code>这是一个简单的条件过滤表达式，
+							当且仅当用户权限为<code>admin</code>或者<code>salesman</code>时才能访问。
+							这是一个多级条件表达式，最后的返回值为布尔值：true or false。接下来我们将具体介绍使用场景。
+						</p>
+						<!--<p>传统AOP拦截器需要引入大量繁杂和多余的概念，例 如：Aspect、Advice、Joinpoint、Poincut、 Introduction、Weaving、Around 等等，并且需要引入 IOC 容器并配合大量的 XML 或者 annotation 来进行组件装配。</p>
+						<p>传统 AOP 不但学习成本极高，开发效率极低，开发体验极差，而且还影响系统性能，尤其是在开发阶段造成项目启动缓慢，极大影响开发效率。</p>
+						<p>ApiAnnotations框架与javadoc巧妙的结合，开发出最大程度能让开发者接受、简洁的表达式、可有效控制权限的粒度。将复杂的过滤器概念减少到极致，最终的返回值为布尔值：true or false。</p>-->
+						<p></p>
+						<h2><a href="">使用场景</a></h2>
+						
+						<p>以下为模拟创建一个添加商品的接口：</p>
+						<p>&diams;  当且仅当用户的权限为<code>admin</code>时，才能访问该接口，具体的使用场景如下：</p>
+						<p>
+							条件表达式：<code>* @filters permission:admin</code>
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * 新增商品
+ * @id A10201
+ * @descriptions *商品名称
+ * @filters permission:admin
+ */
+public int addProduct(String productName);</code>
+</pre>
+						</p>
+						<p>&diams;  当且仅当用户的权限为<code>admin</code>或者<code>salesman</code>时，才能访问该接口，具体的使用场景如下：</p>
+						<p>
+							条件表达式：<code>* @filters permission:admin|permission:salesman</code>
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * 新增商品
+ * @id A10201
+ * @descriptions *商品名称
+ * @filters permission:admin|permission:salesman
+ */
+public int addProduct(String productName);</code>
+</pre>
+						</p>
+						<p>&diams;  当且仅当用户的权限为<code>admin</code>并且还是<code>salesman</code>时，才能访问该接口，具体的使用场景如下：</p>
+						<p>
+							条件表达式：<code>* @filters permission:admin&permission:salesman</code>
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * 新增商品
+ * @id A10201
+ * @descriptions *商品名称
+ * @filters permission:admin&permission:salesman
+ */
+public int addProduct(String productName);</code>
+</pre>
+						</p>
+						<h2><a href="">如何定义@filters</a></h2>
+						<p>
+							上面，我们已经介绍了使用@filters与javadoc结合的敏捷。已经介绍了如何在method上，但是如何知道每个用户各自的权限和角色，上面没有提到。
+							接下来，框架如何知道每个用户的权限，如何为用户配置他们各自的权限和角色。
+						</p>
+						<p>以下为在框架中配置用户信息，具体代码实现如下：</p>
+						<p>
+<pre>
+<code class="language-javascript">public void userLogin(UserLoginEvent event){
+	HttpServletRequest request = Web.getRequest();
+	if (request != null) {
+		PermissionsSupport.add(request.getSession(), "login");
+		
+		for(UserRole i:userRoleQuery.iRoles(event.getSource())){
+			if(i.getAdmin()){
+				PermissionsSupport.add(request.getSession(), "admin");
+			}
+			logger.info("权限："+i.getType());
+			PermissionsSupport.add(request.getSession(), i.getType().name().toLowerCase());
+		}
+		request.getSession().setAttribute("userId", event.getSource().getId());
+		logger.info("用户登入成功:"+event.getSource().getTelephone());
+	}
+}</code>
+</pre>
+						</p>
+					</article>
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

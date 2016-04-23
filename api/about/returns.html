@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<span class="overlay"></span>
+				<nav class="main">
+					<div class="container">
+						<a href="" class="brand">
+							ApiAnnotations
+						</a>
+						<ul class="main-nav">
+							<li class="nav-docs">
+								<a href="">环境部署</a>
+							</li>
+							<li class="nav-api">
+								<a href="" target="_blank">API</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+				<div class="docs-wrapper container">
+
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+
+					<article>
+						<h1>简介</h1>
+						<ul>
+							<li>
+								<a href="">ApiAnnotations框架内涵</a>
+							</li>
+							<li>
+								<a href="">学习ApiAnnotations框架</a>
+							</li>
+							<li>
+								<a href="">研发小组</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2><a href="">接口返回值</a></h2>
+						<h4>表达式符号</h4> 
+						<table>
+							<tr>
+								<td width="15%">元字符</td>
+								<td width="85%">描述</td>
+							</tr>
+							<tr>
+								<td>*</td>
+								<td>表示输出同一级的所有值</td>
+							</tr>
+							<tr>
+								<td>;</td>
+								<td width="80%">表示不同级的值</td>
+							</tr>
+							<tr>
+								<td>|</td>
+								<td>表示属于同一级的属性</td>
+							</tr>
+						</table>
+						<h2><a href="">模拟数据源</a></h2>
+						<p>
+<pre>
+<code class="language-javascript">
+{
+	"total": 100,
+	"list": [
+		{
+			"realname": "小玲",
+			"nickname": "小淘气",
+			"password": "123456",
+			"loginTime": "2016-03-20",
+			"registerTime": "2016-01-20",
+			"iconUrl": "http://tp3.sinaimg.cn/2635183190/180/40026655161/1",
+			"availableBalance": 2000.00,
+			"consumeBalance": 1000.00,
+			"area" : {
+				"province": "福建",
+				"city": "厦门",
+				"company": "班帮信息技术有限公司"
+			}
+		}
+		......
+	]
+}</code>
+</pre>								
+						</p>
+						<h2><a href="">模拟场景一</a></h2>
+						<h4>&diams;  method javadoc 标识</h4>
+						<table>
+							<tr>
+								<td width="">javadoc属性</td>
+								<td width="">输出内容</code></td>
+								<td width="">表达式</code></td>
+							</tr>
+							<tr>
+								<td width="">@returns</td>
+								<td width="">输出所有值</td>
+								<td width=""><code>@returns **</code> 或者 <code>@returns *;list.*;list.area.*</code></td>
+							</tr>
+						</table>
+						<h4>&diams;  输出值</h4>
+						<p>
+<pre>
+<code class="language-javascript">{
+	"total": 100,
+	"list": [
+		{
+			"realname": "小玲",
+			"nickname": "小淘气",
+			"password": "123456",
+			"loginTime": "2016-03-20",
+			"registerTime": "2016-01-20",
+			"iconUrl": "http://tp3.sinaimg.cn/2635183190/180/40026655161/1",
+			"availableBalance": 2000.00,
+			"consumeBalance": 1000.00,
+			"area" : {
+				"province": "福建",
+				"city": "厦门",
+				"company": "班帮信息技术有限公司"
+			}
+		}
+		......
+	]
+}</code>
+</pre>								
+						</p>
+						<h2><a href="">模拟场景二</a></h2>
+						<h4>&diams;  method javadoc 标识</h4>
+						<table>
+							<tr>
+								<td width="">javadoc属性</td>
+								<td width="">输出内容</code></td>
+								<td width="">表达式</code></td>
+							</tr>
+							<tr>
+								<td width="">@returns</td>
+								<td width="">输出指定值</td>
+								<td width=""><code>@returns *;list.id|realname|nickname|loginTime;list.area.city</code></td>
+							</tr>
+						</table>
+						<h4>&diams;  输出值</h4>
+						<p>
+<pre>
+<code class="language-javascript">
+{
+	"total": 100,
+	"list": [
+		{
+			"id": "100000001"
+			"realname": "小玲",
+			"nickname": "小淘气",
+			"loginTime": "2016-03-20",
+			"area" : {
+				"city": "厦门"
+			}
+		}
+		......
+	]
+}</code>
+</pre>								
+						</p>
+						<h2><a href="">模拟场景三</a></h2>
+						<h4>&diams;  method javadoc 标识</h4>
+						<table>
+							<tr>
+								<td width="">javadoc属性</td>
+								<td width="">输出内容</code></td>
+								<td width="">表达式</code></td>
+							</tr>
+							<tr>
+								<td width="">@returns</td>
+								<td width="">输出指定值</td>
+								<td width=""><code>@returns *;*</code> 或者 <code>@returns *</code></td>
+							</tr>
+						</table>
+						<h4>&diams;  输出值</h4>
+						<p>
+<pre>
+<code class="language-javascript">{
+	"total": 100,
+	"list": []
+}</code>
+</pre>								
+						</p>
+					</article>
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

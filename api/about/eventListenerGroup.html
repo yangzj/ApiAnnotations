@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+
+				<div class="docs-wrapper container">
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+					<article>
+						<h1>@EventListenerGroup</h1>
+						<ul>
+							<li>
+								<a href="">简介</a>
+							</li>
+							<li>
+								<a href="">添加FirstAction接口组</a>
+							</li>
+							<li>
+								<a href="">创建FirstAction接口组实现类FirstActionImpl</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2><a href="">简介</a></h2>
+						<p>
+							<code>@EventListenerGroup</code>实现一个监听器监听多个事件。但是其本质<code>ApplicationListener</code>监听<code>ApplicationEvent</code>。
+						</p>
+						<h2><a href="">自定义ApplicationEvent</a></h2>
+						<p>
+							自定义UserLoginEvent与UserLogoutEvent监听事件，都是为ApplicationListener监听器的监听对象，具体代码如下：
+						</p>
+						<h4>UserLoginEvent</h4>
+						<p>
+<pre>
+<code class="language-javascript">import org.springframework.context.ApplicationEvent;
+
+import cn.banbang.lucky.domain.user.model.User;
+/**
+ * 
+ * 用户登入事件
+ *
+ */
+public class UserLoginEvent extends ApplicationEvent{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public UserLoginEvent(User user) {
+		super(user);
+	}
+	@Override
+	public User getSource() {
+		return (User) super.getSource();
+	}
+}</code>
+</pre>
+						</p>
+						<h4>UserLogoutEvent</h4>
+						<p>
+<pre>
+<code class="language-javascript">import org.springframework.context.ApplicationEvent;
+
+import cn.banbang.lucky.domain.user.model.User;
+/**
+ * 
+ * 用户登出事件
+ *
+ */
+public class UserLogoutEvent extends ApplicationEvent{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public UserLogoutEvent(User user) {
+		super(user);
+	}
+	@Override
+	public User getSource() {
+		return (User) super.getSource();
+	}
+}
+
+</code>
+</pre>
+						</p>
+						<blockquote>
+							<p>注：接口头部注释必填项，不然将编译无法通过</p>
+						</blockquote>
+						<h2><a href="">通过@EventListenerGroup注解实现</a></h2>
+						<p>
+							创建<code>UserListener</code>类，并在头部使用<code>@EventListenerGroup</code>注解，
+							框架将自动生成监听器，实现多个监听器监听多个事件。具体注解使用如下：
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">package cn.banbang.lucky.domain.web;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import cn.banbang.lucky.event.UserLoginEvent;
+import cn.banbang.lucky.event.UserLogoutEvent;
+import cn.banbang.xlm.core.annotation.EventListenerGroup;
+import cn.banbang.xlm.web.Web;
+
+@EventListenerGroup
+public class UserListener {
+	private Logger logger = Logger.getLogger(this.getClass());
+	public void userLogin(UserLoginEvent event){
+		HttpServletRequest request = Web.getRequest();
+		if (request != null) {
+			request.getSession().setAttribute("userId", event.getSource().getId());
+			logger.info("用户登入成功:"+event.getSource().getTelephone());
+		}
+	}
+	public void userLogout(UserLogoutEvent event){
+		HttpServletRequest request = Web.getRequest();
+		if (request != null) {
+			request.getSession().invalidate();
+			logger.info("用户退出:"+event.getSource().getTelephone());
+		}
+	}
+}</code>
+</pre>
+						</p>
+						<blockquote>
+							<p>注：<code>UserListener</code>类头部必须加上<code>@EventListenerGroup</code>注解</p>
+						</blockquote>
+						<h2><a href="">通过@EventListenerGroup注解自动生成事件监听器类</a></h2>
+						<p>
+							ApiAnnotations框架将通过识别<code>@EventListenerGroup</code>注解，根据<code>ApplicationEvent</code>监听事件的数目，
+							在<code>apt_generated</code>包下，生成与<code>UserListener</code>相同的包名，
+							生成<code>UserLogoutEvent</code>与<code></code>的监听器。以下代码为ApiAnnotations框架自动生成：
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">package cn.banbang.lucky.domain.web;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.context.ApplicationListener;
+
+@Service("cn.banbang.lucky.domain.web.UserListener_5eb96a")
+public class UserListener_UserLogin_5eb96a implements ApplicationListener&lt;cn.banbang.lucky.event.UserLoginEvent&gt;{
+	cn.banbang.lucky.domain.web.UserListener $$listener;
+	private UserListener_UserLogin_5eb96a() {
+		
+	}
+	@Override
+	public void onApplicationEvent(cn.banbang.lucky.event.UserLoginEvent object) {
+		if($$listener==null){
+			$$listener = new cn.banbang.lucky.domain.web.UserListener();
+			SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext($$listener);
+		}
+		$$listener.userLogin(object);
+	}
+}</code>
+</pre>
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">package cn.banbang.lucky.domain.web;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.context.ApplicationListener;
+
+@Service("cn.banbang.lucky.domain.web.UserListener_1e9b62")
+public class UserListener_UserLogout_1e9b62 implements ApplicationListener&lt;cn.banbang.lucky.event.UserLogoutEvent&gt;{
+	cn.banbang.lucky.domain.web.UserListener $$listener;
+	private UserListener_UserLogout_1e9b62() {
+		
+	}
+	@Override
+	public void onApplicationEvent(cn.banbang.lucky.event.UserLogoutEvent object) {
+		if($$listener==null){
+			$$listener = new cn.banbang.lucky.domain.web.UserListener();
+			SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext($$listener);
+		}
+		$$listener.userLogout(object);
+	}
+}</code>
+</pre>
+						</p>
+					</article>
+				</div>
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

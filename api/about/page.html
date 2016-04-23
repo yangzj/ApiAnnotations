@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+
+				<div class="docs-wrapper container">
+
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+
+					<article>
+						<h1>分页</h1>
+						<ul>
+							<li>
+								<a href="#b1">分页使用</a>
+							</li>
+						</ul>
+						<h2 id="b1"><a href="">分页使用</a></h2>
+						<P>
+							在很多框架中，分页有时很痛苦，但是ApiAnnotations框架的分页很简单，只要传入页数和页码就可以分页的查询数据。
+							提供两种查询数据的<code>sql</code>语法和<code>hql</code>语法，然后结合<code>velocity</code>的语法，
+							就可以实现简单的数据查询分页了。
+						</P>
+						<p>以下为一个简单的分页的简单例子，代码如下：</p>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * @author yzhujue
+ * @description 用户查询类
+ * @id 101
+ */
+@Query
+@ApiGroup
+public interface UserQuery {
+
+	/**
+	 * 分页用户信息列表
+	 * @id Q10101
+	 * @descriptions 页码/每页数量
+	 * @filters open
+	 * @pattern *;list.id|registerTime|nickname|realname|telephone|
+	 * @queryType sqlPage
+	 * @query
+	 * 		&lt;pre&gt;
+	  select * from TB_USER
+	  where lifeCycle='AVAILABLE'
+	  order by  "registerTime" desc
+	 *       &lt;/pre&gt;
+	 */
+	public Page&lt;User&gt; queryUserInfo(int pageSize, int pageNumber);
+}</code>
+</pre>
+						</p>
+						<p>分页查询其实与普通的查询大同小异，只是javadoc标识中的<code>@queryType</code>属性为<code>@sqlPage</code>或者<code>@hqlPage</code>。
+						数据输出值，格式为：<code>{"total": 0, "list": []}</code>，具体的数据输出值表达式可查看<a href="returns.html" target="_blank">数据返回表达式</a>。</p>
+					</article>
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>
