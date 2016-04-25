@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.golaravel.com/laravel/docs/5.1/localization/ -->
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+
+
+				<div class="docs-wrapper container">
+					<article>
+						<h1>创建Maven项目</h1>
+						<ul>
+							<li>
+								<a href="">简介</a>
+							</li>
+							<li>
+								<a href="">创建maven项目</a>
+							</li>
+							<li>
+								<a href="">POM文件配置</a>
+							</li>
+							<li>
+								<a href="">配置项目环境</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2><a href="">简介</a></h2>
+						<p>
+							本次主要引导开发者使用Maven在项目中配置ApiAnnotations框架。所以，在Eclipse平台上面使用ApiAnnotations框架时，需确认Eclipse已安装Maven插件。
+							<a href="http://maven.apache.org/" target="_blank">下载maven插件</a>
+						</p>
+						<h2><a href="">创建项目</a></h2>
+						<p>开始创建一个Maven Project</p>
+						<p>
+							<img src="../../img/maven/1.png">
+						</p>
+						<p>
+							<img src="../../img/maven/2.png">
+						</p>
+						<h2><a href="">POM文件配置</a></h2>
+						<p>
+							pom.xml中配置方式很简单。
+						</p>
+						<p>
+							添加以下dependencies
+						</p>
+						<p>
+							以下为ApiAnnotations框架的核心代码库
+						</p>
+						<p>
+						<pre>
+<code class="language-javascript">&lt;dependency&gt;
+	&lt;groupId&gt;cn.banbang&lt;/groupId&gt;
+	&lt;artifactId&gt;ApiAnnotations-core&lt;/artifactId&gt;
+	&lt;version&gt;1.0&lt;/version&gt;
+	&lt;scope&gt;system&lt;/scope&gt;
+	&lt;systemPath&gt;${project.basedir}/lib/ApiAnnotations-core-0.0.2.jar&lt;/systemPath&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;cn.banbang&lt;/groupId&gt;
+	&lt;artifactId&gt;ApiAnnotations-web&lt;/artifactId&gt;
+	&lt;version&gt;1.0&lt;/version&gt;
+	&lt;scope&gt;system&lt;/scope&gt;
+	&lt;systemPath&gt;${project.basedir}/lib/ApiAnnotations-web-0.0.2.jar&lt;/systemPath&gt;
+&lt;/dependency&gt;
+</code>
+</pre>				
+						</p>
+						<p>
+							添加spring和hibernate相关jar包
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">
+&lt;dependency&gt;
+	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+	&lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+	&lt;version&gt;3.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+	&lt;artifactId&gt;fastjson&lt;/artifactId&gt;
+	&lt;version&gt;1.2.7&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;commons-dbcp&lt;/groupId&gt;
+	&lt;artifactId&gt;commons-dbcp&lt;/artifactId&gt;
+	&lt;version&gt;1.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;commons-pool&lt;/groupId&gt;
+	&lt;artifactId&gt;commons-pool&lt;/artifactId&gt;
+	&lt;version&gt;1.5.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+	&lt;version&gt;4.1.2.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+	&lt;version&gt;4.1.2.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-orm&lt;/artifactId&gt;
+	&lt;version&gt;4.1.2.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+	&lt;version&gt;4.1.2.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+	&lt;version&gt;4.1.2.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+	&lt;artifactId&gt;hibernate-core&lt;/artifactId&gt;
+	&lt;version&gt;4.3.8.Final&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+	&lt;artifactId&gt;hibernate-entitymanager&lt;/artifactId&gt;
+	&lt;version&gt;4.3.8.Final&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;mysql&lt;/groupId&gt;
+	&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+	&lt;version&gt;5.1.24&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+	&lt;artifactId&gt;aspectjrt&lt;/artifactId&gt;
+	&lt;version&gt;1.7.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+	&lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
+	&lt;version&gt;1.7.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.apache.velocity&lt;/groupId&gt;
+	&lt;artifactId&gt;velocity&lt;/artifactId&gt;
+	&lt;version&gt;1.7&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;commons-codec&lt;/groupId&gt;
+	&lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+	&lt;version&gt;1.10&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;log4j&lt;/groupId&gt;
+	&lt;artifactId&gt;log4j&lt;/artifactId&gt;
+	&lt;version&gt;1.2.17&lt;/version&gt;
+&lt;/dependency&gt;
+</code>
+</pre>							
+						</p>
+						<p>确保你的项目编译至少为 Java 1.7</p>
+						<p>
+<pre>
+<code class="language-javascript">&lt;build&gt;
+	&lt;finalName&gt;ROOT&lt;/finalName&gt;
+	&lt;plugins&gt;
+		&lt;plugin&gt;
+			&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+			&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+			&lt;version&gt;3.0&lt;/version&gt;
+			&lt;configuration&gt;
+				&lt;source&gt;1.7&lt;/source&gt;
+				&lt;target&gt;1.7&lt;/target&gt;
+			&lt;/configuration&gt;
+		&lt;/plugin&gt;
+	&lt;/plugins&gt;
+&lt;/build&gt;</code>
+</pre>
+						</p>
+						<h2><a href="">配置项目环境</a></h2>
+						<h4>web.xml配置</h4>
+						<p>web.xml的配置，基本上默认就可以了</p>
+						<p>
+<pre>
+<code class="language-javascript">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee" id="WebApp_ID" version="3.0"&gt;
+ 	&lt;welcome-file-list&gt;    
+      &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;    
+   &lt;/welcome-file-list&gt;
+&lt;/web-app&gt;</code> 
+</pre>								
+						</p>
+						<h4>解决web.xml零配置</h4>
+						<p>DefaultConfigration.java配置文件默认在<code>cn/banbang/core</code>文件夹中</p>
+<pre>
+<code class="language-javascript">package cn.banbang.core;
+
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
+import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+
+/**
+ * web配置，等价于配置web.xml 
+ * http://hanqunfeng.iteye.com/blog/2114967 SpringMVC4零配置--web.xml</a>
+ */
+public class DefaultConfigration implements WebApplicationInitializer {
+	private AnnotationConfigWebApplicationContext applicationContext;
+	private ServletContext servletContext;
+
+	public void onStartup(ServletContext context) throws ServletException {
+		this.servletContext = context;
+		applicationContext = new AnnotationConfigWebApplicationContext();
+		applicationContext.register(SpringConfig.class);
+		// 给web添加spring监听器 等价于
+		servletContext.addListener(new ContextLoaderListener(applicationContext));
+		// 给web添加 OpenSessionInViewFilter 过滤器 等价于
+		FilterRegistration.Dynamic filter = servletContext.addFilter("hibernateFilter", OpenSessionInViewFilter.class);
+		filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+	}
+}</code> 
+</pre>
+						<h4>spring框架参数配置文件 &gt; SpringConfig.java</h4>
+						<p>SpringConfig.java配置文件默认在<code>cn/banbang/core</code>文件夹中</p>
+<pre>
+<code class="language-javascript">package cn.banbang.core;
+
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.dbcp.BasicDataSource;
+import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import cn.banbang.ApiAnnotations.web.handler.ComponentManager;
+import cn.banbang.ApiAnnotations.web.handler.Context;
+import jodd.props.Props;
+
+/**
+ * Spring配置，等价于配置Spring application.xml
+ * http://hanqunfeng.iteye.com/blog/2114975 SpringMVC4零配置--应用上下文配置</a>
+ */
+@Configuration
+@ComponentScan(basePackages = "cn.banbang")
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
+@EnableScheduling
+@EnableAsync
+public class SpringConfig {
+	static Props props  =new Props();
+	static{
+		String path = SpringConfig.class.getResource("/").getPath().substring(1);
+		try {
+			path = jodd.util.URLDecoder.decode(path);
+			props.load(new File(path+"hibernate.properties"), "utf-8");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+    @Bean(destroyMethod = "close")
+    public BasicDataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl(props.getBaseValue("bds.url"));
+        dataSource.setDriverClassName(props.getBaseValue("bds.driver_class"));
+        dataSource.setUsername(props.getBaseValue("bds.username"));
+        dataSource.setPassword(props.getBaseValue("bds.password"));
+        return dataSource;
+    }
+    @Bean
+    public SessionFactory sessionFactory() throws Exception {
+    	LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
+    	bean.setPackagesToScan(props.getBaseValue("hibernate.packages"));
+    	bean.setDataSource(dataSource());
+        bean.afterPropertiesSet();
+        return bean.getObject();
+    }
+    @Bean 
+    public PlatformTransactionManager platformTransactionManager() throws Exception{
+    	HibernateTransactionManager manager = new HibernateTransactionManager();
+    	manager.setSessionFactory(sessionFactory());
+    	return manager;
+    }
+    /**
+     * 由Spring代理本框架《ApiAnnotations》的核心容器
+     */
+    @Bean
+    public ComponentManager parameterBuilderFactory() throws Exception{
+    	ComponentManager factory = new ComponentManager();
+    	factory.setAttribute(Context.ATTR_SESSION_FACTORY, sessionFactory());
+    	factory.addFilterHandlerClass( UserAutowireFilter.class,"userAutowire");
+    	factory.addFilterHandlerClass(ValidateCodeFilter.class,"validateCode");
+    	return factory;
+    }
+}</code> 
+</pre>
+						<h4>hibernate.properties参数配置</h4>
+						<p>接下来就是hibernate连接数据库的参数配置了，<code>src/main/resources/hibernate.properties</code></p>
+						<ol>
+							<li>数据库驱动</li>
+							<li>数据库连接地址</li>
+							<li>数据库用户名</li>
+							<li>数据库密码</li>
+						</ol>
+<pre>
+<code class="language-javascript">bds.driver_class =com.mysql.jdbc.Driver
+bds.url =jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+bds.username =root
+bds.password =root
+hibernate.dialect =org.hibernate.dialect.MySQLDialect
+hibernate.show_sql=false
+hibernate.hbm2ddl.auto=update
+hibernate.current_session_context_class=org.springframework.orm.hibernate4.SpringSessionContext
+hibernate.packages=cn.banbang</code>
+</pre>
+					<p>
+						到现在已经创建一个新的maven项目，剩下的就差配置ApiAnnotations核心模块，
+						配置Eclipse的apt，自动生成代码的部分。
+					</p>
+					<p>可以开始配置ApiAnnotations框架，<a href="eclipseConfiguration.html">配置框架</a></p>
+					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+				</div>
+
+				<<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>APIAnnotations</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="author" content="">
+		<meta name="description" content="、">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="home   language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+
+				<span class="overlay"></span>
+
+				<nav class="main">
+					<div class="container">
+						<a href="" class="brand">
+							ApiAnnotations
+						</a>
+						<ul class="main-nav">
+							<li class="nav-docs">
+								<a href="">环境部署</a>
+							</li>
+							<li class="nav-api">
+								<a href="" target="_blank">API</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+
+				<section class="panel statement light">
+					<div class="content">
+						<h1>和你一样，我们也喜欢优雅的代码！</h1>
+						<p>为 WEB 艺术家创造的 WEB框架。</p>
+						<div class="browser-window">
+							<div class="top-bar">
+								<div class="circles">
+									<div class="circle circle-red"></div>
+									<div class="circle circle-yellow"></div>
+									<div class="circle circle-green"></div>
+								</div>
+							</div>
+							<div class="window-content">
+								<pre class="line-numbers language-php">
+									<code class=" language-php">
+	<span class="token string" spellcheck="true">
+	/**
+	 * @id A10101
+	 * @descriptions 登入/*手机号码/*密码/ip
+	 * @filters open
+	 * @return weixinOpenId
+	 * @regep.telephone 1[0-9]{10}
+	 * @regep.password (\S|\s){6,20}
+	 */
+	</span><span class="token class-name">public User </span><span class="token keyword">login(String telephone, String password);</span>
+									</code>
+								</pre>
+							</div>
+						</div>
+
+					</div>
+
+					<a href="#features" class="next-up">
+
+		强大、现代化的功能
+
+		<img src="./style/down-arrow.png">
+
+	</a>
+				</section>
+
+				<section class="panel features dark" id="features">
+					<h1>有人提到快速开发吗 ?</h1>
+					<p>短时间内交付优雅的项目代码。</p>
+					<div class="blocks stacked">
+						<div class="block odd">
+							<div class="text">
+								<h2>简洁明了、优雅的语法。</h2>
+								<p>想要源代码优雅、简约、且易读？你会发现完全符合你的需求，因为 ApiAnnotations 是专门为你设计一套规范注释语法：繁琐的数据校验、权限管理、变量改名等统统解决。</p>
+							</div>
+							<div class="media">
+
+								<div class="browser-window">
+									<div class="top-bar">
+										<div class="circles">
+											<div class="circle circle-red"></div>
+											<div class="circle circle-yellow"></div>
+											<div class="circle circle-green"></div>
+										</div>
+									</div>
+									<div class="window-content">
+<pre class="language-php">
+<code class=" language-php">/**
+ * @id A10602
+ * @descriptions 用户注册/*手机号码/*密码/*昵称
+ * @filters open
+ * @regep.telephone 1[0-9]{10}
+ * @name.spreadUser spreadUserId
+ * @scope.spreadUser database
+ */
+</code>
+</pre>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- /.block -->
+						<div class="block even">
+							<div class="text">
+								<h2>为你的团队量身定制。</h2>
+								<p>
+									无论你是独自开发，还是二十人的团队，ApiAnnotations实体层能让你耳目一新，严格标准的<a>注释规范</a>，保证项目开发中数据库设计的统一管理。
+								</p>
+							</div>
+							<div class="media">
+								<div class="terminal-window">
+									<div class="top-bar">
+										<div class="circles">
+											<div class="circle circle-red"></div>
+											<div class="circle circle-yellow"></div>
+											<div class="circle circle-green"></div>
+										</div>
+									</div>
+									<div class="window-content">
+<pre class="language-php"><code class=" language-php"><span>/**
+ * @author yzhujue
+ * @description 用户表
+ * @description.telephone 手机号码
+ * @description.userName 用户名
+ */</span>
+@Entity
+@Table(name = "tb_user")
+@JSONType(serialzeFeatures=SerializerFeature.DisableCircularReferenceDetect)
+public class Good extends AbsGood {
+</code>
+</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /.block -->
+						<div class="block odd">
+							<div class="text">
+								<h2>现代化代码自动生成工具，仿佛在施展魔术。</h2>
+								<p>
+									通过简单的注解：<code>@ApiGroup</code>和<code>@Query</code>，ApiAnnotations将自动生成经典的Servlet类和业务实现类。同时自动生成并不影响系统的性能。
+								</p>
+							</div>
+							<div class="media">
+
+								<div class="browser-window">
+									<div class="top-bar">
+										<div class="circles">
+											<div class="circle circle-red"></div>
+											<div class="circle circle-yellow"></div>
+											<div class="circle circle-green"></div>
+										</div>
+									</div>
+									<div class="window-content">
+<pre class="language-php">
+<code class=" language-php">@Query
+@ApiGroup
+public interface Q101xxUserQuery {
+
+	public User userInfo(String userId);
+}
+</code>
+</pre>
+									</div>
+								</div>
+							</div>
+							<!-- /.block -->
+						</div>
+						<a href="#ecosystem" class="next-up">
+					</div>
+				</section>
+
+
+				<footer class="main">
+					<ul>
+						<li class="nav-docs"><a href="">中文文档</a>
+						</li>
+					</ul>
+					<p>Copyright © banbang.</p>
+					<p class="less-significant"><a href="http://jackmcdade.com/" target="_blank">Design by banbang</a>
+					</p>
+				</footer>
+
+			</div>
+		</div>
+	</body>
+
+</html>

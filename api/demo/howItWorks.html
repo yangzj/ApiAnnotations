@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.golaravel.com/laravel/docs/5.1/localization/ -->
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+				<div class="docs-wrapper container">
+					<article>
+						<h1>ApiAnnotations框架如何工作</h1>
+						<ul>
+							<li>
+								<a href="#b1">工作原理</a>
+							</li>
+							<li>
+								<a href="#b2">自动生成有性能影响吗?</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2 id="b1"><a href="">工作原理</a></h2>
+						<p>
+							ApiAnnotations框架的工作方式是其实是挺简单的原理。ApiAnnotations框架它自动添加一个额外的编译步骤，生成源代码，
+							使用标准的Java注释处理工具<a href="http://docs.oracle.com/javase/7/docs/technotes/guides/apt/index.html" target="_blank">(Java Annotation Processing Tool)</a>简称apt。
+						</p>
+						<!--https://github.com/excilys/androidannotations/wiki/HowItWorks-->
+						<p>
+							会生成哪些源代码呢？为每个有带有<code>@ApiGroup</code>注解的Action类，为类中的每个接口，在根目录的<code>apt_generated</code>
+							文件夹中生成对应<code>Servlet</code>实现类，并且根据javadoc，自动生成数据检验方法。
+							例如：接口id为<code>A00101</code>,对应自动生成<code>_A00104.java</code>Servlet实现类。
+						</p>
+						<p>例如，开发者编写下面的类：</p>
+						<p>
+<pre>
+<code class="language-javascript">
+package cn.banbang.demo.action;
+
+import cn.banbang.ApiAnnotations.core.annotation.ApiGroup;
+
+/**
+ * @author yzhujue
+ * @description 第一个ApiGroup
+ * @id 101
+ */
+@ApiGroup
+public interface FirstAction {
+	/**
+	 * 第一个ApiGroup
+	 * @id A00101
+	 */
+	public String helloWorld(); 
+}</code>
+</pre>								
+						</p>
+						<p>
+							ApiAnnotations框架在<code>apt_generated</code>包下，将生成相同的包名，自动生成子类_A00101.java，代码如下：
+						</p>
+											<p>
+<pre>
+<code class="language-javascript">
+package cn.banbang.demo.action;
+
+import java.io.IOException;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+/**
+{
+	"className":"cn.banbang.demo.action.FirstAction",
+	"description":"第一个ApiGroup",
+	"docMapping":{
+		"id":[
+			"A00101"
+		],
+		"descriptions":[
+			"第一个ApiGroup"
+		]
+	},
+	"filters":"private",
+	"id":"A00101",
+	"methodName":"helloWorld",
+	"methods":[
+		"get"
+	],
+	"parameters":[],
+	"returnType":"COMMON",
+	"returnTypeCompileName":"java.lang.String",
+	"returnTypeEnumList":[],
+	"returnTypeFullName":"java.lang.String",
+	"returnTypeName":"java.lang.String",
+	"returnTypeSimpleName":"String",
+	"tests":[]
+}
+**/
+
+
+@WebServlet({"/A00101"})
+@cn.banbang.ApiAnnotations.core.annotation.AnnotationCompileData(type=cn.banbang.ApiAnnotations.core.bean.ApiObject.class,data="%7B%22className%22%3A%22cn.banbang.demo.action.FirstAction%22%2C%22description%22%3A%22%E7%AC%AC%E4%B8%80%E4%B8%AAApiGroup%22%2C%22docMapping%22%3A%7B%22id%22%3A%5B%22A00101%22%5D%2C%22descriptions%22%3A%5B%22%E7%AC%AC%E4%B8%80%E4%B8%AAApiGroup%22%5D%7D%2C%22filters%22%3A%22private%22%2C%22id%22%3A%22A00101%22%2C%22methodName%22%3A%22helloWorld%22%2C%22methods%22%3A%5B%22get%22%5D%2C%22parameters%22%3A%5B%5D%2C%22returnType%22%3A%22COMMON%22%2C%22returnTypeCompileName%22%3A%22java.lang.String%22%2C%22returnTypeEnumList%22%3A%5B%5D%2C%22returnTypeFullName%22%3A%22java.lang.String%22%2C%22returnTypeName%22%3A%22java.lang.String%22%2C%22returnTypeSimpleName%22%3A%22String%22%2C%22tests%22%3A%5B%5D%7D")
+public class _A00101 extends HttpServlet{
+	private static final long serialVersionUID = 1L;
+	@Autowired
+	cn.banbang.demo.action.FirstAction action;
+	@Autowired
+	cn.banbang.ApiAnnotations.web.handler.ComponentManager cm;
+	cn.banbang.ApiAnnotations.core.bean.ApiObject api;
+	cn.banbang.ApiAnnotations.web.handler.Component rh;
+	cn.banbang.ApiAnnotations.web.handler.Component veh;
+	cn.banbang.ApiAnnotations.web.handler.Component seh;
+	cn.banbang.ApiAnnotations.web.handler.Component geh;
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		initComponent();
+		super.init(config);
+	}
+	public void initComponent(){
+		api = cn.banbang.ApiAnnotations.web.ApiInitialize.init(this.getClass());
+		rh = cm.getResponseHandler(api);
+		veh = cm.getErrorHandler(cn.banbang.ApiAnnotations.web.handler.error.ValidateError.class,api);
+		seh = cm.getErrorHandler(cn.banbang.ApiAnnotations.web.handler.error.ServiceError.class,api);
+	}
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		execute(req,resp);
+	}
+	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cn.banbang.ApiAnnotations.web.handler.Context.RequestContext rc = new  cn.banbang.ApiAnnotations.web.handler.Context.RequestContext(cm,request,response,api);
+		try {
+			initComponent();
+			cn.banbang.ApiAnnotations.web.handler.filter.FilterContext fc = cn.banbang.ApiAnnotations.web.handler.filter.FilterContext.create(rc,api,cm);
+			fc.executeAll();
+			rh.execute(new cn.banbang.ApiAnnotations.web.handler.response.ResponseContext(rc,action.helloWorld()));
+		} catch (cn.banbang.ApiAnnotations.web.handler.error.ValidateError e) {
+			veh.execute(new cn.banbang.ApiAnnotations.web.handler.error.ErrorContext(rc,e));
+		}catch (cn.banbang.ApiAnnotations.web.handler.error.ServiceError e) {
+			seh.execute(new cn.banbang.ApiAnnotations.web.handler.error.ErrorContext(rc,e));
+		}catch (Throwable e) {
+			geh = cm.getErrorHandler(e,api);
+			geh.execute(new cn.banbang.ApiAnnotations.web.handler.error.ErrorContext(rc,e));
+		}
+	}
+}
+
+</code>
+</pre>								
+						</p>
+						
+						
+						<h2 id="b2"><a href="">自动生成有性能影响吗?</a></h2>
+						<p>
+							简单的回答：<strong>不会</strong>
+						</p>
+						<p>ApiAnnotations框架开发时有点编译开销，但生成的类是经典的Servlet代码。没有多余反射机制，没有增加多余启动时间，所以不用担心，没有运行时的影响。</p>
+					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+				<div class="docs-wrapper container">
+					<article>
+						<h1>query</h1>
+						<ul>
+							<li>
+								<a href="#b1">简介</a>
+							</li>
+							<li>
+								<a href="#b2">添加查询用户信息接口组UserQuery</a>
+							</li>
+							<li>
+								<a href="#b3">sql语法采用velocity语法</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2 id="b1"><a href="">简介</a></h2>
+						<p>
+							Query层接口用来实现数据接口开发
+						</p>
+						<ul>
+							<li><code>cn/banbang/demo/query</code>包主要用来存放数据查看接口组</li>
+							<li>在Query类中使用@ApiGroup(自动生成Servlet类以及数据校验类)与@Query(数据查询接口实现类)具体实现查看以下代码实例</li>
+						</ul>
+						<h2 id="b2"><a href="">添加查询用户信息接口组UserQuery</a></h2>
+						<p>
+							在项目<code>cn/banbang/demo/query</code>包下创建接口文件UserQuery.java文件，并且设计了用户信息查询的接口，
+							返回值带有分页，<code>page</code>为带有分页的查询结果，具体代码如下：
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * @author banbang
+ * @description 用户查询类
+ * @id 100
+ */
+@ApiGroup
+@AutoGenerateImpl
+public interface UserQuery {
+	/**
+	 * 根据用户id查询用户信息
+	 * @id Q10001
+	 * @descriptions *用户id
+	 * @filters open
+	 * @pattern *
+	 * @queryType sqlGet
+	 * @query
+	 * &lt;pre&gt;
+	  	select * from TB_USER where ID = #safe($userId) 
+	 * &lt;/pre&gt;
+	 */
+	public User getUserInfoById(String userId);
+}</code>
+</pre>
+						</p>
+						<blockquote>
+							<p>注：
+								<br />1、接口头部注释必填项，不然将编译无法通过；
+								<br />2、Query查询类不能写实现类，框架自动生成实现类
+							</p>
+						</blockquote>
+						<p>保存Action类（Eclipse将自动编译，且在apt_generated自动生成servlet实现类以及数据校验类，以及生成UserQuery接口实现类）</p>
+						<h3>系统支持传入Enum枚举类型数据</h3>
+						<p>
+<pre>
+<code class="language-javascript">
+public enum Q10601Enum {
+	loginTime, registerTime
+}</code>
+</pre>
+						<p>接口参数传值，支持传入枚举类型，前端参数没有传值、参数值无法转化、参数值传错，框架都将转化为空，如果开发者有设置默认值，参数值为默认值</p>
+						</p>
+						<h2 id="b3"><a href="">sql语法采用velocity语法</a></h2>
+						<p>
+							在开发的时候，很多时候都遇到过需要动态拼写SQL，有的是在配置文件中写SQL，有的是在Java代码中拼写SQL，以配置文件拼SQL的可以拿MyBatis为代表，但是很多时候是使用Hibernate的，这个时候就想要是Hibernate能像MyBatis那样写就好了。
+						</p>
+						<p>
+							Velocity 可以被用来生成 Java 代码、SQL 或者 PostScript。有很多开源和商业开发的软件是使用 Velocity 来开发的。
+							Velocity是一个基于java的模板引擎（template engine）。
+							它允许任何人仅仅使用简单的模板语言（template language）来引用由java代码定义的对象。</p>
+						</p>
+						<p>以下为velocity + hql的简单应用，具体实现代码（sql用法相同）：</p>
+<pre>
+<code class="language-javascript">
+#if(!$order) #set( $order= "registerTime") #end
+FROM 
+	User
+where 
+	lifeCycle='AVAILABLE'
+	#if("$!telephone"!="") AND telephone = #safe($telephone)  #end
+	#if("$!key"!="") AND realname like #safe("%$key%")  #end
+order by  $order desc</code>
+</pre>						
+						</p>
+						<p>
+						<blockquote>
+							注：velocity虽然强大，但是不是专门为sql定制化，所以还需要自己添加标签<br />
+<code class="language-java">#safe // 通配符，ApiAnnotations框架自带表达式，主要作用是防止sql注入
+telephone = #safe($telephone) ——> telephone = ?</code>
+						</blockquote>
+						</p>
+						<p><a href="http://velocity.apache.org/engine/devel/user-guide.html" target="_blank">查看velocity官网</a></p>
+						<p>
+						</p>
+					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+</html>

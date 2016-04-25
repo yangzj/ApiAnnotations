@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+
+				<div class="docs-wrapper container">
+					<article>
+						<h1>框架意图</h1>
+						<ul>
+							<li>
+								<a href="#b1">框架意图 </a>
+							</li>
+							<li>
+								<a href="#b2">开发痛点</a>
+							</li>
+							<li>
+								<a href="#b3">ApiAnnotations框架如何解决问题</a>
+							</li>
+							<li>
+								<a href="#b4">代码示例</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2 id="b2"><a href="">设计来源</a></h2>
+						<p>
+							当我们开发过程中，我们经常会想：我们为什么需要经常循环的写重复程序代码呢？为什么我们的程序越来越难维护呢？
+							增删改查重复的编写，程序耦合度不断提高，项目API难以管理，项目组开发人员之间代码互相难以理解，众多图片视频资源难以管理，
+							我们不能够改善这些吗？
+						</p>
+						<h2 id="b1"><a href="">设计意图</a></h2>
+						<p>
+							我们致力于开发一套编写方便且便于维护开发框架，我们相信有明确意图并且简单明了的代码能够更好的提高开发速度以及维护。
+						</p>
+						<h2 id="b3"> <a href="">设计思路</a></h2>
+						<p>
+							ApiAnnotations框架通过使用Java annotations，参照于<a href="">AndroidAnnotations</a>。开发者可用通过使用框架注解，并且根据框架规则编写javadoc，
+							然后ApiAnnotations在编译的时候根据注解和javadoc自动生成代码。同时平台提供一套项目API控制台；
+							通过云存储管理静态资源，以及提供一套静态资源管理控制台。
+						</p>
+						
+						<h2 id="b4"><a href="">代码示例</a></h2>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * @author banbang
+ * @description 用户角色类
+ * @id 106
+ */
+@ApiGroup
+public interface UserAction {
+	/**
+	 * 用户登入
+	 * @id A10601
+	 * @descriptions *手机号码/*密码/ip
+	 * @filters open
+	 * @return weixinOpenId;telephone
+	 * @regep.telephone 1[0-9]{10}
+	 * @regep.password (\S|\s){6,20}
+	 */
+	public User login(String telephone, String password, Ip ip);
+}</code>
+</pre>
+						</p>
+						<p>不可小看上面的javadoc哦！等下你就知道它的厉害了</p>
+					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+				</div>
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+</html>

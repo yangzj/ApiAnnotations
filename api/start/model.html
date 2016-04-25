@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.golaravel.com/laravel/docs/5.1/localization/ -->
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+				<nav id="slide-menu" class="slide-menu scotch-panel-left" role="navigation" style="top: 0px; left: -70%; width: 70%; height: 100%; position: absolute; z-index: 888888; overflow: hidden; backface-visibility: hidden; display: block;">
+					<div class="slide-docs-nav">
+						<h2>文档目录</h2>
+						<ul>
+							<li>序言
+								<ul>
+									<li><a href="">简介</a>
+									</li>
+									<li><a href="">升级指南</a>
+									</li>
+									<li><a href="">贡献指南</a>
+									</li>
+									<li><a href="">API 文档</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+				</nav>
+
+				<div class="docs-wrapper container">
+
+					<article>
+						<h1>model</h1>
+						<ul>
+							<li>
+								<a href="#b1">简介</a>
+							</li>
+							<li>
+								<a href="#b2">创建model实体</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2 id="b1"><a href="">简介 </a></h2>
+						<p>
+							通过<a href="firstApi.html" target="_blank">创建第一个ApiGroup</a>之后，运行成功之后，
+							已经初步的掌握了ApiAnnotations框架的开发流程和<a href="howItWorks.html">ApiAnnotations框架的工作原理</a>。
+						</p>
+						<p>
+							到现在为止，项目环境已经配置好，并且使用上了ApiAnnotations框架，接下来，我们就要连接上数据库进入真正的项目开发，开始愉快的编码了！
+						</p>
+						<ul>
+							<li><code>cn/banbang/demo/model</code>包主要用来存放实体类；</li>
+							<li>创建抽象AbsUser实体类继承EntitySupport类；（注：EntitySupport类为框架提供的基础实体类）</li>
+							<li>创建User实体类继承AbsUser抽象类；</li>
+							<li>通过hibernate将User类进行自动建表。</li>
+						</ul>
+						<h2 id="b2"><a href="">创建model实体 </a></h2>
+						<p>
+							在项目<code>cn/banbang/demo/action/model</code>包下创建抽象AbsUser实体类，并且在该抽象类中声明所有用户属性。
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">
+@MappedSuperclass
+public abstract class AbsUser extends EntitySupport {
+	protected String telephone;
+	protected String realname;
+	protected String nickname;
+	protected String password;
+	protected String ip;
+	protected Date loginTime;
+	protected Date registerTime;
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public Date getLoginTime() {
+		return loginTime;
+	}
+
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+}</code>
+</pre>					
+						</p>
+						<p>
+							将该类设置为抽象类，则说明此抽象类必须被继承使用，不能够单独使用。这样能够将子类的共性最大限度的抽取出来，放在抽象父类中，
+							以提高子类的简洁性和更好的维护。
+						</p>
+						<p>
+							为了保证数据的安全性，将AbsUser抽象类的所有成员变量设为protected，且关闭所有成员变量set访问权限。
+							如果要修改数据信息，需在User类自定义的对外开放的数据修改接口，保证数据库数据完整以及安全。
+						</p>
+						<p>
+							在项目<code>cn/banbang/demo/action/model</code>包下创建类User.java，并且继承AbsUser，内容如下;
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">
+package cn.banbang.demo.action.model;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import cn.banbang.ApiAnnotations.web.handler.parameter.def.Ip;
+
+import com.alibaba.fastjson.annotation.JSONType;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+
+/**
+ * 
+ * @author DragonCai
+ * @description 用户表
+ * @description.telephone 手机号码
+ * @description.createDate 创建时间
+ * @description.id 主键
+ * @description.lifeCycle 生命周期
+ * @description.updateDate 更新时间
+ * @description.version 版本
+ * @description.ip IP地址
+ * @description.loginTime 最后一次登入时间
+ * @description.nickname 昵称
+ * @description.realname 姓名
+ * @description.registerTime 注册时间
+ * @description.password 用户密码
+ */
+@Entity
+@Table(name = "tb_user")
+@JSONType(serialzeFeatures = SerializerFeature.DisableCircularReferenceDetect)
+public class User extends AbsUser {
+	public static User produce(String telephone, String password, String nickname, String realname, User spreadUser) {
+		User user = new User();
+		user.telephone = telephone;
+		user.password = password;
+		user.nickname = nickname;
+		user.realname = realname;
+		user.registerTime = new Date();
+		user.autoCreateDate();
+		return user;
+	}
+	
+	public void changeTelephone(String telephone) {
+		this.telephone = telephone;
+		autoUpdateDate();
+	}
+
+	public void updateUserInfo(String nickname, String realname) {
+		this.nickname = nickname;
+		this.realname = realname;
+		autoUpdateDate();
+	}
+
+	public void changePassword(String newPassword) {
+		this.password = newPassword;
+		autoUpdateDate();
+	}
+}
+</code>
+</pre>								
+						</p>
+						<blockquote>
+							<p>注：
+								<br />1、接口头部注释必填项，不然将编译无法通过；
+								<br />2、Query查询类不能写实现类，框架自动生成实现类
+							</p>
+						</blockquote>
+						<p>
+							通过打破eclipse开发平台的原有编译规则，开发者在创建实体的时候，必须对实体创建者、实体描述、实体属性描述进行注释描述，
+							否则eclipse将无法编译成功。一来能够保证整个项目开发和实体创建的规范化，才能够保证整个项目源码的规范；二来能够保证项目组其他开发者对实体熟悉，降低项目组成员之间较多不必要的沟通成本。
+						</p>
+						<h4>实体头部注释说明（头部注释为必填项）</h4> 
+						<table>
+							<tr>
+								<td width="20%">@author</td>
+								<td width="80%">作者，例如：yzhujue</td>
+							</tr>
+							<tr>
+								<td>@description</td>
+								<td>实体描述，例：用户查询类</td>
+							</tr>
+							<tr>
+								<td>@description.telephone</td>
+								<td>实体属性描述，例：手机号码</td>
+							</tr>
+						</table>
+					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

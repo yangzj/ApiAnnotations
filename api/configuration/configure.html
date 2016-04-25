@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.golaravel.com/laravel/docs/5.1/localization/ -->
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+
+				<div class="docs-wrapper container">
+
+					<section class="sidebar">
+						<ul>
+							<li>序言
+								<ul>
+									<li><a href="">简介</a>
+									</li>
+									<li><a href="">升级指南</a>
+									</li>
+									<li><a href="">贡献指南</a>
+									</li>
+									<li><a href="">API 文档</a>
+									</li>
+								</ul>
+							</li>
+							<li>开始学习
+								<ul>
+									<li><a href="">配置</a>
+									</li>
+									<li><a href="">生成相关文件</a>
+									</li>
+									<li><a href="">贡献指南</a>
+									</li>
+									<li><a href="">API 文档</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<article>
+						<h1>简介</h1>
+						<ul>
+							<li>
+								<a href="">ApiAnnotations框架内涵</a>
+							</li>
+							<li>
+								<a href="">学习ApiAnnotations框架</a>
+							</li>
+							<li>
+								<a href="">研发小组</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						
+						<h2><a href="">介绍</a></h2>
+						<p>
+							ApiAnnotations框架解决多个xml文件繁琐的繁琐过程，提供一套将xml配置文件在java文件中配置的方式。极大便捷的设置项目配置，减少用户在配置文件时的失误。
+						</p>
+						<h2><a href="">配置项目环境</a></h2>
+						<h4>web.xml配置</h4>
+						<p>web.xml的配置，基本上默认就可以了</p>
+						<p><img src="../img/webxml.png"></p>
+						<h4>spring框架参数配置文件 &gt; SpringConfig.java</h4>
+						<p>SpringConfig.java配置文件默认在<code>cn/banbang/core</code>文件夹中</p>
+<pre>
+<code class="language-javascript">
+@Configuration
+@ComponentScan(basePackages = "cn.banbang")
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
+@EnableScheduling
+@EnableAsync
+public class SpringConfig {
+	static Props props  =new Props();
+	static{
+		String path = SpringConfig.class.getResource("/").getPath().substring(1);
+		try {
+			path = jodd.util.URLDecoder.decode(path);
+			props.load(new File(path+"hibernate.properties"), "utf-8");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+    @Bean(destroyMethod = "close")
+    public BasicDataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl(props.getBaseValue("bds.url"));
+        dataSource.setDriverClassName(props.getBaseValue("bds.driver_class"));
+        dataSource.setUsername(props.getBaseValue("bds.username"));
+        dataSource.setPassword(props.getBaseValue("bds.password"));
+        return dataSource;
+    }
+    @Bean
+    public SessionFactory sessionFactory() throws Exception {
+    	LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
+    	bean.setPackagesToScan(props.getBaseValue("hibernate.packages"));
+    	bean.setDataSource(dataSource());
+        bean.afterPropertiesSet();
+        return bean.getObject();
+    }
+    @Bean 
+    public PlatformTransactionManager platformTransactionManager() throws Exception{
+    	HibernateTransactionManager manager = new HibernateTransactionManager();
+    	manager.setSessionFactory(sessionFactory());
+    	return manager;
+    }
+    @Bean
+    public GeneralHandlerFactory parameterBuilderFactory() throws Exception{
+    	GeneralHandlerFactory factory = new GeneralHandlerFactory();
+    	factory.addParam("sessionFactory", sessionFactory());
+    	factory.addFilter("userAutowire", UserAutowireFilter.class);
+    	factory.addFilter("validateCode", ValidateCodeFilter.class);
+    	return factory;
+    }
+}
+</code> 
+</pre>
+						<h4>hibernate.properties参数配置</h4>
+						<p>接下来就是hibernate连接数据库的参数配置了</p>
+						<ol>
+							<li>数据库驱动</li>
+							<li>数据库连接地址</li>
+							<li>数据库用户名</li>
+							<li>数据库密码</li>
+						</ol>
+<pre>
+<code class="language-javascript">
+bds.driver_class =com.mysql.jdbc.Driver
+bds.url =jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+bds.username =root
+bds.password =root
+hibernate.dialect =org.hibernate.dialect.MySQLDialect
+hibernate.show_sql=false
+hibernate.hbm2ddl.auto=update
+hibernate.current_session_context_class=org.springframework.orm.hibernate4.SpringSessionContext
+hibernate.packages=cn.banbang
+</code>
+</pre>
+					</article>
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

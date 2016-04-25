@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.golaravel.com/laravel/docs/5.1/localization/ -->
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+
+				<div class="docs-wrapper container">
+					<article>
+						<h1>项目启动</h1>
+						<ul>
+							<li>
+								<a href="#b1">简介</a>
+							</li>
+							<li>
+								<a href="#b2">启动项目</a>
+							</li>
+							<li>
+								<a href="#b3">启动异常处理</a>
+							</li>
+							<li>
+								<a href="#b4">开启浏览器看效果</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2 id="b1"><a href="">简介</a></h2>
+						<p>
+							现在，已经编写好第一个ApiGroup FirstAction，接下来我们就要开始见证成果的时刻了，看是否环境配置正确和程序编写是否规范。
+						</p>
+						<p>
+							目前项目启动我们是推荐使用<code>Jetty</code>，当然也是可以使用其他的服务器。还未安装<code>Jetty</code>
+							可查看<a href="">jetty安装教程</a>。
+						</p>
+						
+						<h2 id="b2"> <a href="">启动项目</a></h2>
+						<p>启动项目，本项目使用的是Jetty启动</p>
+						<p><img src="../../img/jetty/run-1.png"></p>
+						<p>鼠标右键点击 Jetty Webapp 并选择 New 菜单项，新建 Jetty Webapp 启动项，如下图所示：</p>
+						<p><img src="../../img/jetty/run-2.png"></p>
+						<p>Project: 选择新建的项目（我的是demo）；WebApp Folder：src/main/webapp；Context Path：我定义的是demo(可选)；HTTP/HTTPs Ports: 设置为与项目、系统不冲突的端口； </p>
+						<p>配置信息填好之后，点击Debug，项目即可运行启动</p>
+						<p><img src="../../img/jetty/run-3.png" width="700px"></p>
+						<h2 id="b3"><a href="">启动异常处理</a></h2>
+						<p>
+							系统启动时，因为在启动列表中没有添加如下jar，
+							所以可能出现如下异常:java.lang.NoClassDefFoundError: cn/banbang/ApiAnnotations/web/gzip/GzipFilter;
+							具体如下图所示：
+						</p>
+						<p><img src="../../img/jetty/run-4.png" width="800px"></p>
+						<p>启动异常解决方案，打开起初Jetty配置的页面，勾选以下两个jar:<code>ApiAnnotations-core.jar</code>与<code>ApiAnnotations-web.jar</code></p>
+						<p><img src="../../img/jetty/run-5.png" width="750px"></p>
+						<p>重新启动项目，该异常将消失，说明项目已经正常启动。</p>
+						<h2 id="b4"><a href="">开启浏览器看效果</a></h2>
+						<p>打开浏览器在地址栏中输入: <code>http://localhost:8082/demo/A10101</code>，输出内容为：</p>
+												<p>
+<pre>
+<code class="language-javascript">{"error":0,"data":"hello world!"}</code>
+</pre>
+						</p>
+						<p>证明项目 框架搭建完成。同样，每次看到这个环节的时候，我就觉得很欣慰，一个项目搭建成功了。</p>
+					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>

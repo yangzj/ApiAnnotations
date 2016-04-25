@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../../js/loader-css.js"></script>
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<!-- 公共头部， 不能删除-->
+				<div id="_top"></div>
+				<!-- 公共头部， 不能删除-->
+				<nav id="slide-menu" class="slide-menu scotch-panel-left" role="navigation" style="top: 0px; left: -70%; width: 70%; height: 100%; position: absolute; z-index: 888888; overflow: hidden; backface-visibility: hidden; display: block;">
+					<div class="slide-docs-nav">
+						<h2>文档目录</h2>
+						<ul>
+							<li>序言
+								<ul>
+									<li><a href="">简介</a>
+									</li>
+									<li><a href="">升级指南</a>
+									</li>
+									<li><a href="">贡献指南</a>
+									</li>
+									<li><a href="">API 文档</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+				</nav>
+
+				<div class="docs-wrapper container">
+					<article>
+						<h1>action</h1>
+						<ul>
+							<li>
+								<a href="#b1">简介</a>
+							</li>
+							<li>
+								<a href="#b2">添加Action接口组</a>
+							</li>
+							<li>
+								<a href="#b3">创建UserAction接口组实现类UserActionImpl</a>
+							</li>
+							<li>
+								<a href="#b4">spring---ApplicationListener,ApplicationEvent</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2  id="b1"><a href="">简介</a></h2>
+						<p>
+							创建完实体类，就可以开始进入业务层的开发，Action主要实现业务逻辑的开发。
+						</p>
+						<ul>
+							<li><code>cn/banbang/demo/action</code>包主要用来存放用户访问接口组</li>
+							<li><code>cn/banbang/demo/action/impl</code>包主要用来存放用户访问接口组的实现类</li>
+							<li>在Action类中使用@ApiGroup自动生成Servlet类以及数据校验类，具体实现查看以下代码实例</li>
+						</ul>
+						<h2  id="b2"><a href="">添加Action接口组</a></h2>
+						<p>
+							在项目<code>cn/banbang/demo/action</code>包下创建接口组文件UserAction.java文件，并且设计了用户登录的接口，内容如下：
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">/**
+ * 
+ * @author yzhujue
+ * @description 用户角色类
+ * @id 106
+ */
+@ApiGroup
+public interface UserAction {
+
+	/** 手机号码已存在 */
+	public static final String _106001 = "手机号码已存在";
+	/** 手机号码不存在 */
+	public static final String _106002 = "手机号码不存在";
+	/** 密码错误 */
+	public static final String _106003 = "密码错误";
+	/** 新密码与旧密码一致 */
+	public static final String _106004 = "新密码与旧密码一致";
+	
+	/**
+	 * @id A10601
+	 * @descriptions 用户登入/*手机号码/*密码/ip
+	 * @filters open
+	 * @pattern weixinOpenId;telephone
+	 * @re.telephone 1[0-9]{10}
+	 * @re.password (\S|\s){6,20}
+	 */
+	public User login(String telephone, String password, Ip ip);
+}</code>
+</pre>
+						</p>
+						<blockquote>
+							<p>注：接口头部注释必填项，不然将编译无法通过</p>
+						</blockquote>
+						<p>Action类中的常量编号，为对应的异常消息编码，将接口组可能产生的异常信息进行统一管理；
+							保存Action类（Eclipse将自动编译，且在apt_generated自动生成servlet实现类以及数据校验类）</p>
+						<h4>接口组头部注释说明</h4> 
+						<table>
+							<tr>
+								<td width="20%">@author</td>
+								<td width="80%">作者，例如：yzhujue</td>
+							</tr>
+							<tr>
+								<td>@description</td>
+								<td>类描述，例：用户角色类</td>
+							</tr>
+							<tr>
+								<td>@id</td>
+								<td>每个Action操作类都有唯一一个自定义id标识，例：106为UserAction的id</td>
+							</tr>
+						</table>
+						<h4>接口组注解</h4> 
+						<table>
+							<tr>
+								<td width="20%">@ApiGroup</td>
+								<td width="80%">注解容器，通过此注解生成实现类和servlet</td>
+							</tr>
+						</table>
+						<h4>Api注释描述</h4> 
+						<table>
+							<tr>
+								<td width="20%">@id</td>
+								<td width="80%">接口标识，必填且不能重复，格式为：A+接口组id+两位数字，例：A10601</td>
+							</tr>
+							<tr>
+								<td width="20%">@descriptions</td>
+								<td width="80%">接口描述/依次接口参数描述，例：用户登入/*手机号码/*密码/ip  *代表该参数为必填项</td>
+							</tr>
+							<tr>
+								<td width="20%">@filters</td>
+								<td width="80%">设置接口访问权限，open为对外开放</td>
+							</tr>
+							<tr>
+								<td width="20%">@return</td>
+								<td width="80%">接口返回值，例：id或者*，返回当前登录用户id或者用户所有信息</td>
+							</tr>
+							<tr>
+								<td width="20%">@regex.telephone</td>
+								<td width="80%">参数约束，例：telephone 需符合1[0-9]{10}正则表达式</td>
+							</tr>
+							<tr>
+								<td width="20%">@regex.password</td>
+								<td width="80%">参数约束，例：password 需符合(\S|\s){6,20}正则表达式</td>
+							</tr>
+							<tr>
+								<td width="20%">@regex.telephone</td>
+								<td width="80%">参数约束，例：telephone 需符合1[0-9]{10}正则表达式</td>
+							</tr>
+						</table>
+						<h2  id="b3"><a href="">创建UserAction接口组实现类UserActionImpl</a></h2>
+						<p>
+							在项目<code>cn/banbang/demo/action/impl</code>包下创建UserAction接口类的实现类UserActionImpl，代码内容如下
+						</p>
+						<p>
+<pre>
+<code class="language-javascript">@Transactional
+@Service
+public class UserActionImpl extends BaseDao implements UserAction {
+	@Autowired
+	private ApplicationContext context;
+	
+	@Override
+	public User login(String telephone, String password,Ip ip) {
+		User user =  getByTel(telephone); // 根据手机号码获取用户信息
+		if(user==null){
+			throw new ServiceError(106002, _106002);
+		}
+		if(!user.getPassword().equals(password)){
+			throw new ServiceError(106003, _106003);
+		}
+		// 登录成功之后，将用户信息传到listener监听器
+		context.publishEvent(new UserLoginEvent(user));
+		return user;
+	}
+}</code>
+</pre>
+						</p>
+						
+						<blockquote>
+							<p>注：在Action实现类加上<code>@Transactional</code>，声明该实现类需要事务管理。
+								通过事务管理，在实现类中调用Model层的实体开放数据访问方法。</p>
+						</blockquote>
+						<h2 id="b4"><a href="">spring---ApplicationListener,ApplicationEvent</a></h2>
+						<p>
+							Spring的核心是ApplicationContext，它管理bean的整个生命周期。ApplicationContext中加载bean时发布某些类型的事件。
+							事件处理中ApplicationContext 通过了ApplicationEvent类和ApplicationListener接口提供。
+							所以，如果一个bean实现了ApplicationListener，然后每anApplicationEvent被发布到ApplicationContext的时候通知bean。
+							<a href="http://docs.spring.io/spring/docs/4.3.0.BUILD-SNAPSHOT/javadoc-api//org/springframework/context/ApplicationListener.html" target="_blank">查看spring---ApplicationListener</a>
+						</p>
+<pre>
+<code class="language-javascript">
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import cn.banbang.lucky.event.UserLoginEvent;
+import cn.banbang.lucky.event.UserLogoutEvent;
+import cn.banbang.xlm.core.annotation.EventListenerGroup;
+import cn.banbang.xlm.web.Web;
+
+@EventListenerGroup
+public class UserListener {
+	private Logger logger = Logger.getLogger(this.getClass());
+	@Autowired
+	private Q105xxUserRoleQuery userRoleQuery;
+	public void userLogin(UserLoginEvent event){
+		HttpServletRequest request = Web.getRequest();
+		if (request != null) {
+			request.getSession().setAttribute("userId", event.getSource().getId());
+			logger.info("用户登入成功:"+event.getSource().getTelephone());
+		}
+	}
+}
+
+</code>
+</pre>
+						<p>
+							ApplicationContext在运行期会自动检测到所有实现了ApplicationListener的bean对象，并将其作为事件接收对象。
+							当ApplicationContext的publishEvent方法被触发时，每个实现了ApplicationListener接口的bean都会收到ApplicationEvent对象，
+							每个ApplicationListener可根据事件类型只接收处理自己感兴趣的事件，比如上面的UserListener只接收UserLoginEvent事件。
+						</p>
+						<p>登录成功之后，将用户信息传到listener监听器。用户登录成功，首先将用户信息存入在Session中。</p>
+						<p>使系统模块之间更大程度的解耦</p>
+					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
+				</div>
+
+				<div id="_copyright"></div>
+			</div>
+		</div>
+	</body>
+
+</html>
