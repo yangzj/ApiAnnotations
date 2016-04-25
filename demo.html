@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://www.golaravel.com/laravel/docs/5.1/localization/ -->
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>ApiAnnotations框架</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--[if lte IE 9]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="./style/laravel.css">
+		<link rel="stylesheet" href="./style/patch.css">
+	</head>
+
+	<body class="docs language-php scotchified" style="">
+		<div class="scotch-panel-wrapper" style="position: relative; overflow: hidden; width: 100%;">
+			<div class="scotch-panel-canvas" style="position: relative; height: 100%; width: 100%; transform: translate3d(0px, 0px, 0px); backface-visibility: hidden; transition: all 300ms ease;">
+				<span class="overlay"></span>
+				<nav class="main">
+					<div class="container">
+						<a href="" class="brand">
+							ApiAnnotations
+						</a>
+						<ul class="main-nav">
+							<li class="nav-docs">
+								<a href="">环境部署</a>
+							</li>
+							<li class="nav-api">
+								<a href="" target="_blank">API</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+				<nav id="slide-menu" class="slide-menu scotch-panel-left" role="navigation" style="top: 0px; left: -70%; width: 70%; height: 100%; position: absolute; z-index: 888888; overflow: hidden; backface-visibility: hidden; display: block;">
+					<div class="slide-docs-nav">
+						<h2>文档目录</h2>
+						<ul>
+							<li>序言
+								<ul>
+									<li><a href="">简介</a>
+									</li>
+									<li><a href="">升级指南</a>
+									</li>
+									<li><a href="">贡献指南</a>
+									</li>
+									<li><a href="">API 文档</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+				</nav>
+
+				<div class="docs-wrapper container">
+
+					<section class="sidebar">
+						<ul>
+							<li>序言
+								<ul>
+									<li><a href="http://www.golaravel.com/laravel/docs/5.1/releases">版本说明</a>
+									</li>
+									<li><a href="http://www.golaravel.com/laravel/docs/5.1/upgrade">升级指南</a>
+									</li>
+									<li><a href="http://www.golaravel.com/laravel/docs/5.1/contributions">贡献指南</a>
+									</li>
+									<li><a href="http://www.golaravel.com/laravel/api/5.1">API 文档</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<article>
+						<h1>本地化</h1>
+						<ul>
+							<li><a href="http://www.golaravel.com/laravel/docs/5.1/localization/#introduction">介绍</a>
+							</li>
+							<li><a href="http://www.golaravel.com/laravel/docs/5.1/localization/#basic-usage">基本用法</a>
+								<ul>
+									<li><a href="http://www.golaravel.com/laravel/docs/5.1/localization/#pluralization">复数形式</a>
+									</li>
+								</ul>
+							</li>
+							<li><a href="http://www.golaravel.com/laravel/docs/5.1/localization/#overriding-vendor-language-files">覆写扩展包的语言文件</a>
+							</li>
+						</ul>
+						<p>
+							<a name="introduction"></a>
+						</p>
+						<h2><a href="http://www.golaravel.com/laravel/docs/5.1/localization/#basic-usage">基本用法</a></h2>
+						<h4>在语言文件中替换参数</h4>
+						<p>你还可以给语言文件中的各行定义占位符。所有的占位符都以 <code class=" language-php"><span class="token punctuation">:</span></code> 为前缀。比如你可以定义一个带有占位符 name 的欢迎信息：</p>
+						<p>要替换占位符，只需要将一个数组作为第二个参数传入 <code class=" language-php">trans</code> 函数：</p>
+						<p>
+							<a name="pluralization"></a>
+						</p>
+						<h3>复数形式</h3>
+						<p>复数是个复杂的问题，不同语言对复数有各自不同的规则。通过使用 “|” 标记，你可以区分一个字符串的单数和复数形式：</p>
+						<p>接下来你可以使用 <code class=" language-php">trans_choice</code> 方法来根据给定的”个数“取得字串。在下面的例子中，因为个数大于1，所以返回该行的复数形式的字串：</p>
+						<p>因为 Laravel 的翻译器由 Symfony 翻译组件提供，你可以创建更加复杂的复数规则：</p>
+						<p>
+							<a name="overriding-vendor-language-files"></a>
+						</p>
+						<h2><a href="http://www.golaravel.com/laravel/docs/5.1/localization/#overriding-vendor-language-files">覆写扩展包的语言文件</a></h2>
+						<p>有些扩展包自带语言文件。你可以将语言文件放置在 <code class=" language-php">resources<span class="token operator">/</span>lang<span class="token operator">/</span>vendor<span class="token operator">/</span><span class="token punctuation">{</span>package<span class="token punctuation">}</span><span class="token operator">/</span><span class="token punctuation">{</span>locale<span class="token punctuation">}</span></code>							目录来覆写它们，而不是去修改扩展包的核心文件。</p>
+						<p>所以，如果你需要覆写 <code class=" language-php">skyrim<span class="token operator">/</span>hearthfire</code> 扩展包的 <code class=" language-php">messages<span class="token punctuation">.</span>php</code> 中的英文语句，你可以将一个语言文件放在 <code class=" language-php">resources<span class="token operator">/</span>lang<span class="token operator">/</span>vendor<span class="token operator">/</span>hearthfire<span class="token operator">/</span>en<span class="token operator">/</span>messages<span class="token punctuation">.</span>php</code>。在该文件中只定义需要覆写的语句。没有被覆写的语句将依然从扩展包的语言文件中加载。</p>
+
+					</article>
+				</div>
+
+				<footer class="main">
+					<ul>
+						<li class="nav-docs"><a href="">中文文档</a>
+						</li>
+					</ul>
+					<p>Copyright © banbang.</p>
+					<p class="less-significant"><a href="http://jackmcdade.com/" target="_blank">Design by banbang</a>
+					</p>
+				</footer>
+
+				<script src="./style/laravel.js"></script>
+				<script src="./style/viewport-units-buggyfill.js"></script>
+				<script>
+					window.viewportUnitsBuggyfill.init();
+				</script>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)http://www.golaravel.com/ -->
+<html lang="zh-CN">
+	<!--http://www.golaravel.com/page/2/-->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<title>ApiAnnotations框架</title>
+
+		<meta name="HandheldFriendly" content="True">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="shortcut icon" href="http://hsw.banbang.cn/html/validate/icons/logo.ico">
+
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/font-awesome.min.css">
+		<link rel="stylesheet" href="./css/vs.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/screen.css">
+
+		<meta name="referrer" content="origin">
+		<link rel="next" href="http://www.golaravel.com/page/2/">
+		<script type="text/javascript" src="./js/ghost-url.min.js"></script>
+		<script type="text/javascript">
+			ghost.init({
+				clientId: "ghost-frontend",
+				clientSecret: "26b0e31d612d"
+			});
+		</script>
+		<meta name="generator" content="Ghost 0.7">
+		<style id="fit-vids-style">
+			.fluid-width-video-wrapper {
+				width: 100%;
+				position: relative;
+				padding: 0;
+			}
+			
+			.fluid-width-video-wrapper iframe,
+			.fluid-width-video-wrapper object,
+			.fluid-width-video-wrapper embed {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body class="home-template">
+
+		<!-- start header -->
+		<header class="main-header">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <h1>让我们建立一个更好的WEB应用。</h1>
+                    <h3 class="hide1" style="color:#fff;">ApiAnnotations框架帮助开发团队打造基于JVM的简单，高效，快捷，灵活的系统。</h3>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+
+    <!-- start navigation -->
+    <nav class="main-navigation ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <div class="navbar-header ">
+                        <span class="nav-toggle-button collapsed " data-toggle="collapse " data-target="#main-menu ">
+                        <span class="sr-only ">Toggle navigation</span>
+                        <i class="fa fa-bars "></i>
+                        </span>
+                    </div>
+                    <div class="collapse navbar-collapse " id="main-menu ">
+                        <ul class="menu ">
+						    <li role="presentation "><a href="">首页</a></li>
+						    <li role="presentation " class="nav-current "><a href="" title=" " target="_blank ">环境搭建</a></li>
+						    <li role="presentation "><a href=" " title="" target="_blank ">框架搭建</a></li>
+						    <li role="presentation "><a href=" " title="" target="_blank ">框架处理流程图</a></li>
+						    <li role="presentation "><a href=" " title="" target="_blank ">文档</a></li>
+						    <li role="presentation "><a href="" title="">下载</a></li>
+						    <li role="presentation "><a href=" " title="" target="_blank ">API控制台</a></li>
+						</ul>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- end navigation -->
+
+
+    <section class="content-wrap ">
+        <div class="container ">
+            <div class="row ">
+            	<aside class="col-md-4 sidebar ">
+					<div class="widget ">
+						<h4 class="title ">下载</h4>
+						<div class="content download ">
+							<a href=" " class="btn btn-default btn-block ">工程项目下载</a>
+						</div>
+					</div>
+					<div class="widget">
+						<h4 class="title">文档</h4>
+						<a href="" class="btn btn-default btn-block" target="_blank">框架依赖</a>
+					    <a href="" class="btn btn-default btn-block" target="_blank">开发工具</a>
+					    <a href="" class="btn btn-default btn-block" target="_blank">下载Eclipse</a>
+					    <a href="" class="btn btn-default btn-block" target="_blank">下载MySql</a>
+					    <a href="" class="btn btn-default btn-block" target="_blank">安装JDK</a>
+					</div>
+					<div class="widget ">
+						<h4 class="title ">社区</h4>
+						<div class="content community ">
+							<p>QQ群：337965738</p>
+							<p><a href="" title="Laravel中文网问答社区 " target="_blank ">加入我们</a></p>
+						</div>
+					</div>
+				</aside>
+                <main class="col-md-8 main-content">
+					<article id="52" class="post tag-laravel-5-1 tag-artisan">
+					    <header class="post-head">
+					        <h1 class="post-title">通过maven开始搭建ApiAnnotations框架</h1>
+					        <section class="post-meta">
+					            <span class="author"></span> 
+					            <time class="post-date">2016年2月18日</time>
+					        </section>
+					    </header>
+						<section class="post-content">
+							<h2 id="php">项目环境准备</h2>
+							<ol>
+								<li>
+									将下载下来的项目，解压到任意目录，建议将工程源码解压到Eclipse的工作目录下，我的Eclipse工作目录为：<code>D:\code</code>；
+								</li>
+								<li>将工程目录导入到Eclipse的workspace上，现在完成将代码导入到Eclipse的工作空间中，备注：Eclipse需安装maven插件</li>
+								<li>
+									<p>即可看到如下项目工程目录：</p>
+									<p><img src="img/workspace.png" alt="" title="" ></p>
+								</li>
+								<li>
+									<p>配置 eclipse annotation processing（eclipse注解解析器）</p>
+									<p><img src="img/annotation-processing-setting.png" alt="" title="" ></p>
+								</li>
+								<li>
+									<p>在Eclipse Marketplace中添加Eclipse Jetty插件</p>
+									<p><img src="img/install-jetty.png" alt="" title="" ></p>
+								</li>
+								<li>
+									<p>在src/main/resources目录中hibernate.properties设置数据库连接地址、用户名、密码；</p>
+								</li>
+							</ol>
+							<p>到这里，说明项目环境已经基本上搭建好了</p>
+							<h2 id="laravel51">项目启动</h2>
+							<ol>
+								<li>
+									<p>项目启动，启动方式选择》Run with Jetty</p>
+								</li>
+								<li>
+									<p>打开浏览器，在地址栏输入 localhost:8084 ，回车看看是否出现了熟悉的画面 :).(我的端口号为8084)</p>
+									<p><img src="img/welcome.png" alt="" title="" ></p>
+								</li>
+							</ol>
+							<p>说明ApiAnnotations框架已经跑起来了！</p>
+						</section>
+					</article>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-4 ">
+                    <div class="widget ">
+                        <h4 class="title ">标签云</h4>
+                        <div class="content tag-cloud ">
+                            <a href="">ApiAnnotations</a>
+                            <a href=" ">...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+					
+				</div>
+                <div class="col-sm-4 ">
+                    <div class="widget ">
+                        <h4 class="title ">合作伙伴</h4>
+                        <div class="content tag-cloud friend-links ">
+                            <a href="http://www.bootcss.com/ " title="Bootstrap中文网 " onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;link&#39;, &#39;click&#39;, &#39;bootcsscom&#39;]) " target="_blank ">Bootstrap中文网</a>
+                        </div>
+                	</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="copyright ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <span>Copyright © <a href="./">班帮网</a></span> | 
+                    <span><a href="http://www.miibeian.gov.cn/ " target="_blank ">闽ICP备14004623号-1</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="http://www.golaravel.com/# " id="back-to-top "><i class="fa fa-angle-up "></i></a>
+    <script src="./js/jquery.min.js "></script>
+    <script src="./js/bootstrap.min.js "></script>
+    <script src="./js/jquery.fitvids.min.js "></script>
+    <script src="./js/highlight.min.js "></script>
+    <script src="./js/main.js "></script>
+</body>
+</html>

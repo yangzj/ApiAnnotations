@@ -1,57 +1,261 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Apiannotations by yangzj</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Apiannotations</h1>
-      <h2 class="project-tagline"></h2>
-      <a href="https://github.com/yangzj/ApiAnnotations" class="btn">View on GitHub</a>
-      <a href="https://github.com/yangzj/ApiAnnotations/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/yangzj/ApiAnnotations/tarball/master" class="btn">Download .tar.gz</a>
+<!-- saved from url=(0025)http://www.golaravel.com/ -->
+<html lang="zh-CN">
+	<!--http://www.golaravel.com/page/2/-->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="referrer" content="origin">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>ApiAnnotations框架</title>
+		<meta name="HandheldFriendly" content="True">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="http://hsw.banbang.cn/html/validate/icons/logo.ico">
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/screen.css">
+		<link rel="stylesheet" href="plugs/prism-gh-pages/themes/prism.css" />
+		<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+		<script src="plugs/prism-gh-pages/prism.js" type="text/javascript"></script>
+		<style id="fit-vids-style">
+			.fluid-width-video-wrapper {
+				width: 100%;
+				position: relative;
+				padding: 0;
+			}
+			
+			.fluid-width-video-wrapper iframe,
+			.fluid-width-video-wrapper object,
+			.fluid-width-video-wrapper embed {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body class="home-template">
+
+		<!-- start header -->
+		<header class="main-header">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <h1>Annotations</h1>
+                    <h3 class="hide1" style="color:#fff; line-height: 44px;">ApiAnnotations是Servlet框架，基于Java Annotations Processer，自动生成Servlet，致力于提供高性能和透明化Http Api，方便代码阅读和线上Api文档管理</h3>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+
+    <!-- start navigation -->
+    <nav class="main-navigation " style="margin-bottom: 0px;">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <div class="navbar-header ">
+                        <span class="nav-toggle-button collapsed " data-toggle="collapse " data-target="#main-menu ">
+                        <span class="sr-only ">Toggle navigation</span>
+                        <i class="fa fa-bars "></i>
+                        </span>
+                    </div>
+                    <div class="collapse navbar-collapse " id="main-menu ">
+                        <ul class="menu ">
+						    <li class="nav-current " role="presentation "><a href="">首页</a></li>
+						    <li role="presentation "><a href="" title=" " target="_blank ">安装</a></li>
+						    <li role="presentation "><a href=" " title="" target="_blank ">开发</a></li>
+						    <li role="presentation "><a href="api/introduction/goals.html" title="" target="_blank ">文档</a></li>
+						    <li role="presentation "><a href="" title="">下载</a></li>
+						    <li role="presentation "><a href=" " title="" target="_blank ">API控制台</a></li>
+						</ul>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- end navigation -->
+
+
+    <section class="content-wrap ">
+        <div class="container ">
+            <div class="row ">
+                <main class="col-md-6 main-content ">
+					<article id="61 " class="tag-lumen tag-xin-ban-ben-fa-bu ">
+					    <div class="post-head ">
+					        <h3 class="post-title " style="border-bottom: 2px  solid #ccc; line-height: 55px;">使用之前</h3>
+					        <div class="post-meta ">
+					        </div>
+					    </div>
+					    <div class="post-content1">
+					        <p>
+<pre style="background: #f9f9f9;">
+<code class="language-javascript">public interface UserService {
+	
+	public Page&lt;User&gt; queryUserInfo(int pageSize, int pageNumber, String telephone, String key);
+}</code>
+</pre>					        	
+					        </p>
+					        <p>
+<pre style="background: #f9f9f9;">
+<code class="language-javascript">@Service("UserServiceImpl")
+@Transactional
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserDao userDao;
+	
+	@Override
+	public Page&lt;User&gt; queryUserInfo(int pageSize, int pageNumber,
+			String telephone, String key, String orderBy) {
+		if(StringUtils.isEmpty(orderBy)) {
+			orderBy = "registerTime";
+		}
+		if(!orderBy.equals("registerTime") || !orderBy.equals("loginTime")) {
+			orderBy = "registerTime";
+		}
+		String sql = "select * from TB_USER where lifeCycle='AVAILABLE' ";
+		if(StringUtils.isEmpty(telephone)) {
+			sql = sql + "telephone = ? ";
+		}
+		if(StringUtils.isEmpty(key)) {
+			sql = sql + "realname like " + '%'+key+'%';
+		}
+		sql = sql + "order by " + orderBy + "desc";
+		return userDao.findBySql(pageSize, pageNumber, sql, User.class);
+	}
+}</code>
+</pre>					        	
+					        </p>
+					        <p>
+<pre style="background: #f9f9f9;">
+<code class="language-javascript">@Controller("UserController")
+@RequestMapping("user")
+public class UserController {
+	
+	@Resource(name = "userServiceImpl")
+	private UserService userService;
+	
+	@RequestMapping("/queryUserInfo")
+	public JSONObject queryUserInfo(int pageSize, int pageNumber, String telephone, String key, String order) {
+		JSONObject json = new JSONObject();
+		if(!pageSize.matches("^[0-9]+$")) {
+    		json.put("error", true);
+			json.put("data", "每页数量需为数字"");
+    	}
+    	if(!pageNumber.matches("^[0-9]+$")) {
+    		json.put("error", true);
+			json.put("data", "页码需为数字"");
+    	}
+    	if(!telephone.matches("^[0-9]{11}$")) {
+    		json.put("error", true);
+			json.put("data", "手机号码不正确"");
+    	}
+		Page&lt;User&gt; data = userService.queryUserInfo(int pageSize, int pageNumber, String telephone, String key);
+		json.put("error", false);
+		json.put("data", data);
+		return json;
+	}
+}
+</code>
+</pre>					        	
+					        </p>
+					    </div>
+					</article>
+                </main>
+                <main class="col-md-6 main-content ">
+					<article id="61 " class="tag-lumen tag-xin-ban-ben-fa-bu ">
+					    <div class="post-head ">
+					        <h3 class="post-title " style="border-bottom: 2px  solid #ccc; line-height: 55px;">使用之后</h3>
+					        <div class="post-meta ">
+					        </div>
+					    </div>
+					    <div class="post-content1">
+					        <p>
+<pre style="background: #f9f9f9;">
+<code class="language-javascript">@Query
+@ApiGroup
+public interface UserQuery {
+
+	/**
+	 * @id Q10601
+	 * @descriptions 搜索用户信息列表/*pageSize/*pageNumber/telephone/order/key
+	 * @filters open
+	 * @pattern *;list.id|registerTime|nickname|realname|telephone|
+	 * @default.orderBy cn.banbang.demo.query.UserQuery.Q10601Enum.registerTime
+	 * @queryType hqlPage
+	 * @regep.telephone [0-9]{11}
+	 * @regep.pageSize [0-9]+
+	 * @regep.pageNumber [0-9]+
+	 * @query
+	 * 
+	 * 		<pre>
+	  #if(!$orderBy) #set( $order= "registerTime") #end
+	  FROM User
+	  where lifeCycle='AVAILABLE'
+	  #if("$!telephone"!="") AND telephone = #safe($telephone)  #end
+	  #if("$!key"!="") AND realname like #safe("%$key%")  #end
+	  order by  $order desc
+	 *        </pre>
+	 */
+	public Page&lt;User&gt; queryUserInfo(int pageSize, int pageNumber, String telephone, String key, Q10605Enum orderBy);
+	
+	public enum Q10605Enum {
+		loginTime, registerTime
+	}
+}</code>
+</pre>					        	
+					        </p>
+					    </div>
+					</article>
+                </main>
+            </div>
+        </div>
     </section>
 
-    <section class="main-content">
-      <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
-
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/yangzj/ApiAnnotations">Apiannotations</a> is maintained by <a href="https://github.com/yangzj">yangzj</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
+    <footer class="main-footer ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-4 ">
+                    <div class="widget ">
+                        <h4 class="title ">标签云</h4>
+                        <div class="content tag-cloud ">
+                            <a href="">ApiAnnotations</a>
+                            <a href=" ">...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+					
+				</div>
+                <div class="col-sm-4 ">
+                    <div class="widget ">
+                        <h4 class="title ">合作伙伴</h4>
+                        <div class="content tag-cloud friend-links ">
+                            <a href="http://www.bootcss.com/ " title="Bootstrap中文网 " onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;link&#39;, &#39;click&#39;, &#39;bootcsscom&#39;]) " target="_blank ">Bootstrap中文网</a>
+                        </div>
+                	</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="copyright ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-12 ">
+                    <span>Copyright © <a href="./">班帮网</a></span> | 
+                    <span><a href="http://www.miibeian.gov.cn/ " target="_blank ">闽ICP备14004623号-1</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="http://www.golaravel.com/# " id="back-to-top "><i class="fa fa-angle-up "></i></a>
+    <script src="./js/jquery.min.js "></script>
+    <script src="./js/bootstrap.min.js "></script>
+    <script src="./js/jquery.fitvids.min.js "></script>
+    <script src="./js/highlight.min.js "></script>
+    <script src="./js/main.js "></script>
+</body>
 </html>
