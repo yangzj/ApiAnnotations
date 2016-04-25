@@ -36,27 +36,25 @@
 
 				<div class="docs-wrapper container">
 
-					<!-- 右边菜单， 不能删除-->
-					<section class="sidebar" id="sidebar"></section>
-					<!-- 右边菜单， 不能删除-->
-
 					<article>
-						<h1>简介</h1>
+						<h1>过滤JSON对象属性输出</h1>
 						<ul>
 							<li>
-								<a href="">ApiAnnotations框架内涵</a>
+								<a href="#b1">简介</a>
 							</li>
 							<li>
-								<a href="">学习ApiAnnotations框架</a>
+								<a href="#b2">过滤表达式</a>
 							</li>
 							<li>
-								<a href="">研发小组</a>
+								<a href="#b3">模拟场景</a>
 							</li>
 						</ul>
 						<p>
 							<a name="introduction"></a>
 						</p>
-						<h2><a href="">接口返回值</a></h2>
+						<h2 id="b1"><a href="">简介</a></h2>
+						<p>过滤表达式主要是为了控制数据的输出，为了保证某些数据不让用户看到，在后台做了过滤，这样能够保证数据的安全性。</p>
+						<h2 id="b2"><a href="">过滤表达式</a></h2>
 						<h4>表达式符号</h4> 
 						<table>
 							<tr>
@@ -76,48 +74,8 @@
 								<td>表示属于同一级的属性</td>
 							</tr>
 						</table>
-						<h2><a href="">模拟数据源</a></h2>
-						<p>
-<pre>
-<code class="language-javascript">
-{
-	"total": 100,
-	"list": [
-		{
-			"realname": "小玲",
-			"nickname": "小淘气",
-			"password": "123456",
-			"loginTime": "2016-03-20",
-			"registerTime": "2016-01-20",
-			"iconUrl": "http://tp3.sinaimg.cn/2635183190/180/40026655161/1",
-			"availableBalance": 2000.00,
-			"consumeBalance": 1000.00,
-			"area" : {
-				"province": "福建",
-				"city": "厦门",
-				"company": "班帮信息技术有限公司"
-			}
-		}
-		......
-	]
-}</code>
-</pre>								
-						</p>
-						<h2><a href="">模拟场景一</a></h2>
-						<h4>&diams;  method javadoc 标识</h4>
-						<table>
-							<tr>
-								<td width="">javadoc属性</td>
-								<td width="">输出内容</code></td>
-								<td width="">表达式</code></td>
-							</tr>
-							<tr>
-								<td width="">@returns</td>
-								<td width="">输出所有值</td>
-								<td width=""><code>@returns **</code> 或者 <code>@returns *;list.*;list.area.*</code></td>
-							</tr>
-						</table>
-						<h4>&diams;  输出值</h4>
+						<h2 id="b3"><a href="">模拟场景</a></h2>
+						<h4>模拟数据源</h4>
 						<p>
 <pre>
 <code class="language-javascript">{
@@ -143,21 +101,39 @@
 }</code>
 </pre>								
 						</p>
-						<h2><a href="">模拟场景二</a></h2>
-						<h4>&diams;  method javadoc 标识</h4>
-						<table>
-							<tr>
-								<td width="">javadoc属性</td>
-								<td width="">输出内容</code></td>
-								<td width="">表达式</code></td>
-							</tr>
-							<tr>
-								<td width="">@returns</td>
-								<td width="">输出指定值</td>
-								<td width=""><code>@returns *;list.id|realname|nickname|loginTime;list.area.city</code></td>
-							</tr>
-						</table>
-						<h4>&diams;  输出值</h4>
+						<h4>模拟场景一</h4>
+						<p>&diams;  当要输出所有json值时：</p>
+						<p>表达式：<code>@returns **</code> 或者 <code>@returns *;list.*;list.area.*</code></p>
+						<p>输出结果：</p>
+						<p>
+<pre>
+<code class="language-javascript">{
+	"total": 100,
+	"list": [
+		{
+			"realname": "小玲",
+			"nickname": "小淘气",
+			"password": "123456",
+			"loginTime": "2016-03-20",
+			"registerTime": "2016-01-20",
+			"iconUrl": "http://tp3.sinaimg.cn/2635183190/180/40026655161/1",
+			"availableBalance": 2000.00,
+			"consumeBalance": 1000.00,
+			"area" : {
+				"province": "福建",
+				"city": "厦门",
+				"company": "班帮信息技术有限公司"
+			}
+		}
+		......
+	]
+}</code>
+</pre>								
+						</p>
+						<h4>模拟场景二</h4>
+						<p>&diams;  当要输出部分json值时：</p>
+						<p>表达式：<code>@returns *;list.id|realname|nickname|loginTime;list.area.city</code></p>
+						<p>输出结果：</p>
 						<p>
 <pre>
 <code class="language-javascript">
@@ -178,21 +154,10 @@
 }</code>
 </pre>								
 						</p>
-						<h2><a href="">模拟场景三</a></h2>
-						<h4>&diams;  method javadoc 标识</h4>
-						<table>
-							<tr>
-								<td width="">javadoc属性</td>
-								<td width="">输出内容</code></td>
-								<td width="">表达式</code></td>
-							</tr>
-							<tr>
-								<td width="">@returns</td>
-								<td width="">输出指定值</td>
-								<td width=""><code>@returns *;*</code> 或者 <code>@returns *</code></td>
-							</tr>
-						</table>
-						<h4>&diams;  输出值</h4>
+						<h4>模拟场景三</h4>
+						<p>&diams;  当要输出json值第一属性时：</p>
+						<p>表达式：<code>@returns *</code></p>
+						<p>输出结果：</p>
 						<p>
 <pre>
 <code class="language-javascript">{
@@ -202,6 +167,9 @@
 </pre>								
 						</p>
 					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
 				</div>
 
 				<div id="_copyright"></div>

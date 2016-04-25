@@ -22,11 +22,6 @@
 				<!-- 公共头部， 不能删除-->
 
 				<div class="docs-wrapper container">
-
-					<!-- 右边菜单， 不能删除-->
-					<section class="sidebar" id="sidebar"></section>
-					<!-- 右边菜单， 不能删除-->
-
 					<article>
 						<h1>@Query</h1>
 						<ul>
@@ -53,33 +48,26 @@
 						<p>
 <pre>
 <code class="language-javascript">/**
- * @author yzhujue
+ * @author banbang
  * @description 用户查询类
- * @id 106
+ * @id 100
  */
-@Query
 @ApiGroup
+@AutoGenerateImpl
 public interface UserQuery {
-
 	/**
-	 * 搜索用户信息列表
-	 * @id Q10601
-	 * @descriptions telephone/key
+	 * 根据用户id查询用户信息
+	 * @id Q10001
+	 * @descriptions *用户id
 	 * @filters open
-	 * @pattern *;list.id|registerTime|nickname|realname|telephone|
-	 * @queryType sqlPage
+	 * @pattern *
+	 * @queryType sqlGet
 	 * @query
-	 * 
-	 * 		&lt;pre&gt;
-	  #if(!$order) #set( $order= "registerTime") #end
-	  select * FROM User
-	  where lifeCycle='AVAILABLE'
-	  #if("$!telephone"!="") AND telephone = #safe($telephone)  #end
-	  #if("$!key"!="") AND realname like #safe("%$key%")  #end
-	  order by  $order desc
-	 *       &lt;/pre&gt;
+	 * &lt;pre&gt;
+	  	select * from TB_USER where ID = #safe($userId) 
+	 * &lt;/pre&gt;
 	 */
-	public List&lt;User&gt; queryUserInfo(String telephone, String key);
+	public User getUserInfoById(String userId);
 }</code>
 </pre>
 						</p>
@@ -147,6 +135,9 @@ public interface UserQuery {
 							</tr>
 						</table>
 					</article>
+					<!-- 右边菜单， 不能删除-->
+					<section class="sidebar" id="sidebar"></section>
+					<!-- 右边菜单， 不能删除-->
 				</div>
 
 				<div id="_copyright"></div>
