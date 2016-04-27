@@ -32,13 +32,13 @@
 								<a href="">表达式</a>
 							</li>
 							<li>
+								<a href="">框架自带filter</a>
+							</li>
+							<li>
 								<a href="">使用场景</a>
 							</li>
 							<li>
 								<a href="">自定义filters</a>
-							</li>
-							<li>
-								<a href="">使用场景</a>
 							</li>
 						</ul>
 						<p>
@@ -48,14 +48,10 @@
 						<p>@filters只针对具体方法method，没有针对具体的类class进行过滤。与javadoc进行巧妙的结合，构建简洁的表达式。能够同时使用多个拦截器，比如：ip、权限进行拦截。</p>
 						<h2><a href="">表达式</a></h2>
 						<p>
-							<code>@filters permission:admin|permission:salesman</code>这是一个简单的条件过滤表达式，
-							当且仅当用户权限为<code>admin</code>或者<code>salesman</code>时才能访问。
-							这是一个多级条件表达式，最后的返回值为布尔值：true or false。接下来我们将具体介绍使用场景。
+							<code>@filters role:admin|role:salesman</code>这是一个简单的条件过滤表达式，
+							当且仅当用户角色为<code>admin</code>或者<code>salesman</code>时才能访问。
+							这是一个多级条件表达式，最后的返回值为布尔值：true or false。以下是一个简单的使用场景，具体使用代码如下：
 						</p>
-						<!--<p>传统AOP拦截器需要引入大量繁杂和多余的概念，例 如：Aspect、Advice、Joinpoint、Poincut、 Introduction、Weaving、Around 等等，并且需要引入 IOC 容器并配合大量的 XML 或者 annotation 来进行组件装配。</p>
-						<p>传统 AOP 不但学习成本极高，开发效率极低，开发体验极差，而且还影响系统性能，尤其是在开发阶段造成项目启动缓慢，极大影响开发效率。</p>
-						<p>ApiAnnotations框架与javadoc巧妙的结合，开发出最大程度能让开发者接受、简洁的表达式、可有效控制权限的粒度。将复杂的过滤器概念减少到极致，最终的返回值为布尔值：true or false。</p>-->
-						<p></p>
 						<h2><a href="">框架自带filter</a></h2>
 						<h4>filter列表</h4> 
 						<table>
@@ -125,60 +121,79 @@
 						</table>
 						<h2><a href="">使用场景</a></h2>
 						<p>以下为模拟创建一个添加商品的接口：</p>
-						<p>&diams;  当且仅当用户的权限为<code>admin</code>时，才能访问该接口，具体的使用场景如下：</p>
-						<p>
-							条件表达式：<code>* @filters permission:admin</code>
-						</p>
-					
-						<p>&diams;  当且仅当用户的权限为<code>admin</code>或者<code>salesman</code>时，才能访问该接口，具体的使用场景如下：</p>
-						<p>
-							条件表达式：<code>* @filters permission:admin|permission:salesman</code>
-						</p>
 						<p>
 <pre>
 <code class="language-javascript">/**
  * 新增商品
  * @id A10201
  * @descriptions *商品名称
- * @filters permission:admin|permission:salesman
+ * @filters 条件表达式
  */
 public int addProduct(String productName);</code>
 </pre>
 						</p>
-						<p>&diams;  当且仅当用户的权限为<code>admin</code>并且还是<code>salesman</code>时，才能访问该接口，具体的使用场景如下：</p>
+						<h4>以下为模拟不同的过滤场景，然后根据不同过滤场景，使用不同的条件表达式，具体场景如下：</h4>
+						<p>&diams;  当且仅当用户的角色为<code>admin</code>时，才能访问该接口，具体的使用场景如下：</p>
 						<p>
-							条件表达式：<code>* @filters permission:admin&permission:salesman</code>
+							条件表达式：<code>* @filters role:admin</code>
 						</p>
-						<p>&diams;  当且仅当用户的ip地址，才能访问该接口，具体的使用场景如下：</p>
+					
+						<p>&diams;  当且仅当用户具有角色<code>admin</code>或者<code>salesman</code>时，才能访问该接口，具体的使用场景如下：</p>
+						<p>
+							条件表达式：<code>* @filters role:admin|role:salesman</code>
+						</p>
+						<p>&diams;  当且仅当用户的角色为<code>admin</code>并且还是<code>salesman</code>时，才能访问该接口，具体的使用场景如下：</p>
+						<p>
+							条件表达式：<code>* @filters role:admin&role:salesman</code>
+						</p>
+						<p>&diams;  当且仅当用户的ip地址为系统限制的ip时，才能访问该接口，具体的使用场景如下：</p>
 						<p>
 							条件表达式：<code>@filters ip:172.*.*.*</code>或者<code>@filters ip:172.1*.1*.1*</code>
 						</p>
-						<p>&diams;  当且仅当用户的ip地址，才能访问该接口，具体的使用场景如下：</p>
+						<p>&diams;  当且仅当用户为<code>登录</code>状态时，才能访问该接口，具体的使用场景如下：</p>
 						<p>
-							条件表达式：<code>@filters ip:172.*.*.*</code>或者<code>@filters ip:172.1*.1*.1*</code>
+							条件表达式：<code>@filters login</code>
+						</p>
+						<p>&diams;  当且仅当用户拥有权限<code>addProduct</code>或者<code>deleteProduct</code>时，才能访问该接口，具体的使用场景如下：</p>
+						<p>
+							条件表达式：<code>* @filters permission:addProduct|permission:deleteProduct</code>
 						</p>
 						<h2><a href="">自定义filter</a></h2>
 						<p>
-							上面，我们已经介绍了使用@filters与javadoc结合的敏捷。已经介绍了如何在method上，但是如何知道每个用户各自的权限和角色，上面没有提到。
-							接下来，框架如何知道每个用户的权限，如何为用户配置他们各自的权限和角色。
+							上面，我们已经介绍了使用@filters与javadoc结合的敏捷。但是除了框架自带的filters之外，开发者可以，根据每个项目的不同点进行自定义。
+							比如开发者，需要自定义属于自己的filter：myfilter，具体实现代码如下：
 						</p>
 						<p>以下为在框架中配置用户信息，具体代码实现如下：</p>
 						<p>
 <pre>
-<code class="language-javascript">public void userLogin(UserLoginEvent event){
-	HttpServletRequest request = Web.getRequest();
-	if (request != null) {
-		PermissionsSupport.add(request.getSession(), "login");
+<code class="language-javascript">import cn.banbang.xlm.web.annotaion.XlmComponent;
+import cn.banbang.xlm.web.filter.FilterContext;
+import cn.banbang.xlm.web.filter.FilterHandler;
+/**
+ * 
+ * 自定义filter
+ * @名称：myfilter
+ * @举例：@filters myfilter:xxxx
+ */
+@XlmComponent
+public class MyFilterHandler extends FilterHandler {
+
+	@Override
+	public void execute(FilterContext context) {
+		//获取参数 xxx
+		context.getNode().getLastName();
+		//FilterContext 可以获取web上下文
+		//TODO 达到某种条件，让其通过请求，既设置 context.setResult(true)
+		context.setResult(true);
 		
-		for(UserRole i:userRoleQuery.iRoles(event.getSource())){
-			if(i.getAdmin()){
-				PermissionsSupport.add(request.getSession(), "admin");
-			}
-			logger.info("权限："+i.getType());
-			PermissionsSupport.add(request.getSession(), i.getType().name().toLowerCase());
-		}
-		request.getSession().setAttribute("userId", event.getSource().getId());
-		logger.info("用户登入成功:"+event.getSource().getTelephone());
+		//TODO 达到某种条件，不允许其访问，既设置 context.setResult(false)
+		context.setResult(true);
+	}
+	
+	@Override
+	public String effect() {
+		//设置过滤器名称
+		return "myfilter";
 	}
 }</code>
 </pre>

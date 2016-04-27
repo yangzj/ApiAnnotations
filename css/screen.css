@@ -191,6 +191,7 @@ pre {
   line-height: 4em;
   display: block;
   padding: 0 21px;
+  font-size: 16px;
 }
 .main-navigation .menu li:hover > a {
   /*color: #f4645f;*/
