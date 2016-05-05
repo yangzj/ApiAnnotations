@@ -1,6 +1,5 @@
 $(document).ready(function() {
     // Set up tour
-    $(document).click(function(){
     	$('body').pagewalkthrough({
         name: 'introduction',
         steps: [{
@@ -48,6 +47,5 @@ $(document).ready(function() {
 
     // Show the tour
     $('body').pagewalkthrough('show');
-    });
     
 });
