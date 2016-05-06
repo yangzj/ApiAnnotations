@@ -4,7 +4,7 @@
 #jpwFinish {
   color: #00c7ff;
   cursor: pointer;
-  font-family: 'GochiHand';
+  font-family: 'GochiHand', '微软雅黑';
   font-size: 18px;
   font-weight: lighter;
 }
@@ -30,6 +30,7 @@
   overflow: visible;
   padding: 10px;
   background: none;
+  font-family: 'GochiHand', '微软雅黑';
 }
 #jpWalkthrough #jpwTooltip #tooltipWrapper {
   overflow: visible;
@@ -54,7 +55,7 @@
 }
 #jpWalkthrough #jpwTooltip .top {
   background: url("images/arrow-bottom.png") no-repeat scroll 0 0 transparent;
-  bottom: -86px;
+  bottom: -55px;
   height: 86px;
   left: 130px;
   position: absolute;
@@ -93,13 +94,21 @@
   z-index: 1000;
 }
 #jpWalkthrough #jpwTooltip #tooltipInner {
-  font-family: 'GochiHand';
+  font-family: 'GochiHand', '微软雅黑';
   color: #ffffff;
   text-align: center;
   font-size: 22px;
 }
+
+#jpWalkthrough #jpwTooltip #tooltipInner p {
+  font-family: 'GochiHand', '微软雅黑';
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+}
+
 #jpWalkthrough #jpwTooltip #tooltipInner a {
-  font-size: 22px;
+  font-size: 16px;
 }
 #jpWalkthrough #jpwTooltip #tooltipInner .tooltipTitle {
   font-size: 40px;
@@ -140,11 +149,11 @@
   float: left;
 }
 @font-face {
-  font-family: 'GochiHand';
+  font-family: 'GochiHand', '微软雅黑';
   src: url('font/GochiHand-Regular.eot');
   font-weight: normal;
   font-style: normal;
-  font-family: 'GochiHand';
+  font-family: 'GochiHand', '微软雅黑';
   src: url('font/GochiHand-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;

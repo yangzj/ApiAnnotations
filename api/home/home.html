@@ -14,6 +14,9 @@
 		<script src="jquery-1.11.1.min.js"></script>
 		<script src="jquery.pagewalkthrough.js"></script>
 		<script src="main.js"></script>
+		<style>
+			#jpwTooltip{font-family: 'Architects Daughter';}
+		</style>
 	</head>
 
 	<body class="home   language-php scotchified" style="">
@@ -41,16 +44,20 @@
 							<div class="window-content">
 								<pre class="line-numbers language-php">
 									<code class=" language-php">
-	<span class="token string" spellcheck="true">
-	/**
-	 * @id A10101
-	 * @descriptions 登入/*手机号码/*密码/ip
-	 * @filters open
-	 * @return weixinOpenId
-	 * @regep.telephone 1[0-9]{10}
-	 * @regep.password (\S|\s){6,20}
-	 */
-	</span><span class="token class-name">public User </span><span class="token keyword">login(String telephone, String password);</span>
+	
+	 <span class="token string" spellcheck="true">/**</span>
+	 <span class="token string" spellcheck="true" style="padding: 0px 40px 35px 0px;">* 根据用户id获取用户信息</span>
+	 <span class="token string javadoc-id" spellcheck="true" style="padding: 0px 40px 35px 0px;">* @id A10101</span>
+	 <span class="token string javadoc-descriptions" spellcheck="true" style="padding: 0px 40px 35px 0px;">* @descriptions *用户id</span>
+	 <span class="token string javadoc-filters" spellcheck="true" style="padding: 0px 40px 35px 0px;">* @filters open</span>
+	 <span class="token string javadoc-returns" spellcheck="true" style="padding: 0px 40px 35px 0px;">* @returns *</span>
+	 <span class="token string javadoc-regep" spellcheck="true" style="padding: 0px 40px 35px 0px;">* @regep.userId [0-9]{10}</span>
+	 <span class="token string javadoc-script" spellcheck="true" style="padding: 0px 250px 35px 0px;"">* @script hibernate
+	 	&lt;pre&gt;
+	 		from User where userId= ${userId}
+	 	&lt;/pre&gt;</span>
+	 <span class="token string" spellcheck="true">*/</span>
+	<span class="token class-name">public User </span><span class="token keyword">getUserById(String userId);</span>
 									</code>
 								</pre>
 							</div>
@@ -176,32 +183,33 @@ public interface Q101xxUserQuery {
 
 
 				<div id="_copyright"></div>
-				<div id="walkthrough-content">
+				<div id="walkthrough-content" style="font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;">
 			<div id="walkthrough-1">
-				<h1>Welcome to the jQuery Page Walkthrough Demo Site</h1>
-
-				<p>step1</p>
-				<p></p>
+				<p>你知道吗？代码注释还能这样玩</p>
 			</div>
 
 			<div id="walkthrough-2">
-				This step shows a <em>tooltip</em> style step, which allows you to highlight an area of the screen in order to draw the user's attention to it
+				<p><code>@id</code>为每个http请求入口地址，如：${basePath}/A10000</p>
 			</div>
 
 			<div id="walkthrough-3">
-				Click here to view the documentation for the available options which the plugin supports
+				<p>@descriptions对每个参数描述</p>
 			</div>
 
 			<div id="walkthrough-4">
-				Click here to view the annotated source code for the plugin
+				<p>@filters对每个http请求过滤，open表示对外开放</p>
 			</div>
 
 			<div id="walkthrough-5">
-				Click here to view the project on GitHub. On the project page, you can get an overview of the issues, bugs, and planned features, view installation instructions, and see the changelog.
+				<p>@returns对每个http请求结果进行过滤，**表示输出所有值</p>
 			</div>
 
 			<div id="walkthrough-6">
-				Ready to get started building some awesome tours? Here's your download options.
+				<p>@regep对传入参数值进行正则校验</p>
+			</div>
+			
+			<div id="walkthrough-7">
+				<p>@script hibernate为</p>
 			</div>
 		</div>
 			</div>

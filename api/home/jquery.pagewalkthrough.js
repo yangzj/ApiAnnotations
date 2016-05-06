@@ -374,7 +374,7 @@
              // Recommended to be at least twice the inset box-shadow spread
             padding: '20px',
             position: 'absolute',
-            top: targetElement.offset().top - 20, // top/left minus padding
+            top: targetElement.offset().top - 20 + 3, // top/left minus padding
             left: targetElement.offset().left - 20,
             'z-index': 999998,
             'box-shadow': '0 0 1px 10000px rgba(0, 0, 0, 0.6)'
@@ -1039,14 +1039,14 @@
         show: true
       },
       jpwNext: {
-        i18n: 'Next &rarr;',
+        i18n: '<b><span style="font-family: GochiHand">Next</span></b> &rarr;',
         // Function which resolves to a boolean
         show: function() {
           return !isLastStep();
         }
       },
       jpwPrevious: {
-        i18n: '&larr; Previous',
+        i18n: '&larr; <b><span font-family: "GochiHand">Previous</span></b>',
         show: function() {
           return !isFirstStep();
         }
