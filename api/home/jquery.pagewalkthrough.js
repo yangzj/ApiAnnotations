@@ -374,7 +374,7 @@
              // Recommended to be at least twice the inset box-shadow spread
             padding: '20px',
             position: 'absolute',
-            top: targetElement.offset().top - 20 + 3, // top/left minus padding
+            top: targetElement.offset().top - 20, // top/left minus padding
             left: targetElement.offset().left - 20,
             'z-index': 999998,
             'box-shadow': '0 0 1px 10000px rgba(0, 0, 0, 0.6)'
@@ -540,7 +540,7 @@
             parseInt(step.popup.offsetVertical, 10) - 86;
         left = (overlayHoleLeft + (overlayHoleWidth / 2)) -
           ($jpwTooltip.width() / 2) - 5 +
-          parseInt(step.popup.offsetHorizontal, 10);
+          parseInt(step.popup.offsetHorizontal, 10) + 100;
         arrowLeft = ($jpwTooltip.width() / 2) - arrow +
             parseInt(step.popup.offsetArrowHorizontal, 10);
         arrowTop = (step.popup.offsetArrowVertical) ?
