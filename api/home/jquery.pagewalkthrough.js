@@ -540,7 +540,7 @@
             parseInt(step.popup.offsetVertical, 10) - 86;
         left = (overlayHoleLeft + (overlayHoleWidth / 2)) -
           ($jpwTooltip.width() / 2) - 5 +
-          parseInt(step.popup.offsetHorizontal, 10) + 100;
+          parseInt(step.popup.offsetHorizontal, 10) + 60;
         arrowLeft = ($jpwTooltip.width() / 2) - arrow +
             parseInt(step.popup.offsetArrowHorizontal, 10);
         arrowTop = (step.popup.offsetArrowVertical) ?
